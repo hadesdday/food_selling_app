@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,10 +19,13 @@ import java.util.ArrayList;
 
 public class BillDetails extends AppCompatActivity {
     ArrayList<Product> products = new ArrayList<>();
+    ArrayList<Product> productsClone = new ArrayList<>();
     ListView listItems;
     ProductAdapter productAdapter = null;
     TextView sdt, mahd, address;
-    final String URL="http://192.168.1.3/WebServiceProject.asmx";
+    Button savebtn;
+    Bundle bundle;
+    final String URL="http://192.168.1.5:82/WebService.asmx";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +34,8 @@ public class BillDetails extends AppCompatActivity {
         mahd = (TextView) findViewById(R.id.textMahd_details);
         address = (TextView) findViewById(R.id.textAddress_details);
         listItems = (ListView) findViewById(R.id.listItems);
-        Bundle bundle = getIntent().getExtras();
+        savebtn=(Button) findViewById(R.id.btnSave_BillDetails);
+        bundle = getIntent().getExtras();
 //        ArrayList<Product> products = bundle.getParcelableArrayList("products");
 //        Log.i("TAG", "doGetListItems: "+products.size());
         mahd.setText(bundle.getInt("mahd")+"");
@@ -38,6 +44,12 @@ public class BillDetails extends AppCompatActivity {
         doGetList(bundle.getInt("mahd"));
         productAdapter = new ProductAdapter(this, R.layout.activity_item_product, products);
         listItems.setAdapter(productAdapter);
+        savebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
     public void doGetList(int idBill) {
         try{
@@ -69,10 +81,15 @@ public class BillDetails extends AppCompatActivity {
                 double gia= Double.parseDouble(soapItem.getProperty("gia").toString());
                 int soluongmua=Integer.parseInt(soapItem.getProperty("soluongmua").toString());
                 products.add(new Product(masp,tensp,gia,soluongmua));
+                productsClone.add(new Product(masp,tensp,gia,soluongmua));
             }
             productAdapter.notifyDataSetChanged();
         }catch (Exception e){
             Log.i("TAG", "doGetListItems: "+e.toString());
         }
+    }
+
+    public void saveChange(){
+
     }
 }
