@@ -26,7 +26,7 @@ public class ListBill extends AppCompatActivity {
     BillAdapter billAdapter = null;
     ListView listViewBill = null;
     Button btnOrderedBill, btnFinishedBill, btnCancledBill;
-    final String URL="http://192.168.1.3/WebServiceProject.asmx";
+    final String URL="http://192.168.1.5:82/WebService.asmx";
 //    final String URL="https://localhost:44364/WebServiceProject.asmx";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
