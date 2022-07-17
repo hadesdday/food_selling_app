@@ -43,7 +43,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button2"
+            android:id="@+id/btnBackBillList"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:background="#FFEB3B"

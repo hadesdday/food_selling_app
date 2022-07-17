@@ -2,6 +2,8 @@ package com.example.food_selling_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.MarshalFloat;
 import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
@@ -23,9 +26,10 @@ public class BillDetails extends AppCompatActivity {
     ListView listItems;
     ProductAdapter productAdapter = null;
     TextView sdt, mahd, address;
-    Button savebtn;
+    Button deletebtn,backbtn;
     Bundle bundle;
-    final String URL="http://192.168.1.5:82/WebService.asmx";
+
+    final String URL="http://192.168.1.7:82/WebService.asmx";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +38,8 @@ public class BillDetails extends AppCompatActivity {
         mahd = (TextView) findViewById(R.id.textMahd_details);
         address = (TextView) findViewById(R.id.textAddress_details);
         listItems = (ListView) findViewById(R.id.listItems);
-        savebtn=(Button) findViewById(R.id.btnSave_BillDetails);
+        deletebtn=(Button) findViewById(R.id.btnDelete_BillDetails);
+        backbtn=(Button) findViewById(R.id.btnBackBillList);
         bundle = getIntent().getExtras();
 //        ArrayList<Product> products = bundle.getParcelableArrayList("products");
 //        Log.i("TAG", "doGetListItems: "+products.size());
@@ -44,12 +49,68 @@ public class BillDetails extends AppCompatActivity {
         doGetList(bundle.getInt("mahd"));
         productAdapter = new ProductAdapter(this, R.layout.activity_item_product, products);
         listItems.setAdapter(productAdapter);
-        savebtn.setOnClickListener(new View.OnClickListener() {
+        deletebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                AlertDialog.Builder builder = new AlertDialog.Builder(BillDetails.this);
+                AlertDialog dialog;
+                builder.setTitle("Are you sure delete this item?");
+                builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        doDeleteBill(bundle.getInt("mahd"));
+                        finish();
+                    }
+                });
+                builder.setNegativeButton("no", null);
+                dialog = builder.create();
+                dialog.show();
             }
         });
+        backbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
+    public void doDeleteBill(int idBill){
+        boolean result = false;
+        try {
+            Log.i("TAG", "doGetList: run1");
+            final String NAMESPACE = "http://localhost/";
+            final String METHOD_NAME = "deleteBill";
+            final String SOAP_ACTION = NAMESPACE + METHOD_NAME;
+            SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
+//            SoapObject newProduct  =new SoapObject(NAMESPACE,"Product");
+            request.addProperty("mahd", idBill);
+//            request.addSoapObject(newProduct);
+            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+            envelope.dotNet = true;
+            envelope.setOutputSoapObject(request);
+            Log.i("TAG", "doGetList: run2");
+            HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+            Log.i("TAG", "doGetList: run3");
+            androidHttpTransport.call(SOAP_ACTION, envelope);
+            SoapPrimitive soapPrimitive = (SoapPrimitive) envelope.getResponse();
+            Log.i("TAG", "doGetList: run4");
+            int ret = Integer.parseInt(soapPrimitive.toString());
+            String msg = "success";
+            if (ret <= 0) {
+                msg = "false";
+                result = false;
+            } else {
+                result = true;
+            }
+
+            Log.i("TAG", "doGetList: run5:" + msg);
+
+
+        } catch (Exception e) {
+            Log.i("TAG", "error: " + e.toString());
+        }
+
     }
     public void doGetList(int idBill) {
         try{
@@ -77,6 +138,7 @@ public class BillDetails extends AppCompatActivity {
                 Log.i("TAG", "doGetList: add");
                 SoapObject soapItem=(SoapObject) soapArray.getProperty(i);
                 int masp= Integer.parseInt(soapItem.getProperty("masp").toString());
+                Log.i("TAG", "get masp: "+masp);
                 String tensp=soapItem.getProperty("tensp").toString();
                 double gia= Double.parseDouble(soapItem.getProperty("gia").toString());
                 int soluongmua=Integer.parseInt(soapItem.getProperty("soluongmua").toString());

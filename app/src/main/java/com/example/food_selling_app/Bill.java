@@ -7,10 +7,14 @@ public class Bill {
     private int mahoadon;
     private ArrayList<Product> products;
     private String dateBill;
+    private String sodienthoai;
+    private String diachi;
 
-    public Bill(int mahoadon, String dateBill) {
+    public Bill(int mahoadon, String dateBill, String sodienthoai, String diachi) {
         this.mahoadon = mahoadon;
         this.dateBill = dateBill;
+        this.sodienthoai = sodienthoai;
+        this.diachi = diachi;
     }
 
     public int getMahoadon() {
@@ -31,12 +35,28 @@ public class Bill {
 
     public double getBillPrice() {
         double tong = 0;
-        if (getProducts()==null) return 0;
+        if (getProducts() == null) return 0;
         else {
             for (Product p : getProducts())
                 tong += p.getTongGia();
             return tong;
         }
+    }
+
+    public String getSodienthoai() {
+        return sodienthoai;
+    }
+
+    public void setSodienthoai(String sodienthoai) {
+        this.sodienthoai = sodienthoai;
+    }
+
+    public String getDiachi() {
+        return diachi;
+    }
+
+    public void setDiachi(String diachi) {
+        this.diachi = diachi;
     }
 
     public ArrayList<Product> getProducts() {

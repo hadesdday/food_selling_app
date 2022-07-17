@@ -11,6 +11,7 @@ public class Product implements Parcelable {
     private String ngaydathang;
 
     public Product(int masp,String tensp, double gia, int soluongmua) {
+        this.masp=masp;
         this.tensp = tensp;
         this.gia = gia;
         this.soluongmua = soluongmua;
@@ -88,5 +89,16 @@ public class Product implements Parcelable {
         dest.writeDouble(gia);
         dest.writeInt(soluongmua);
         dest.writeString(ngaydathang);
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "masp=" + masp +
+                ", tensp='" + tensp + '\'' +
+                ", gia=" + gia +
+                ", soluongmua=" + soluongmua +
+                ", ngaydathang='" + ngaydathang + '\'' +
+                '}';
     }
 }
