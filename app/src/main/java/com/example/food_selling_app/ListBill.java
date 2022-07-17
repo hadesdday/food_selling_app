@@ -2,9 +2,9 @@ package com.example.food_selling_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
@@ -20,13 +20,13 @@ import org.ksoap2.transport.HttpTransportSE;
 
 import java.util.ArrayList;
 
-public class ListBill extends AppCompatActivity {
+public class ListBill extends Activity {
     ArrayList<Bill> bills = new ArrayList<>();
-
+    private boolean reloadNeed = true;
     BillAdapter billAdapter = null;
     ListView listViewBill = null;
-    Button btnOrderedBill, btnFinishedBill, btnCancledBill;
-    final String URL="http://192.168.1.5:82/WebService.asmx";
+    Button btnOrderedBill, btnFinishedBill, btnCancledBill,btnback;
+    final String URL="http://192.168.1.7:82/WebService.asmx";
 //    final String URL="https://localhost:44364/WebServiceProject.asmx";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,7 @@ public class ListBill extends AppCompatActivity {
         setContentView(R.layout.activity_list_bill);
         btnOrderedBill = (Button) findViewById(R.id.btnOrderedBill);
         listViewBill = (ListView) findViewById(R.id.billListView);
+        btnback=(Button) findViewById(R.id.btnBackBillList) ;
 //        Bill b1 = new Bill(1, "1/1/2022");
 //        ArrayList<Product> p1 = new ArrayList<>();
 //        p1.add(new Product("sp1", 10000, 1, "a"));
@@ -62,6 +63,7 @@ public class ListBill extends AppCompatActivity {
 
         billAdapter = new BillAdapter(this, R.layout.activity_item_bill, bills);
         listViewBill.setAdapter(billAdapter);
+        billAdapter.notifyDataSetChanged();
         doGetList();
         btnOrderedBill.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,14 +80,33 @@ public class ListBill extends AppCompatActivity {
 //                Log.i("TAG", "doGetListItems: "+bill.getProducts().size());
 //                bundle.putParcelableArrayList("products", bill.getProducts());
                 bundle.putInt("mahd", bill.getMahoadon());
-                bundle.putString("sdt", "số điện thoại");
-                bundle.putString("address", "địa chỉ");
+                bundle.putString("sdt", bill.getSodienthoai());
+                bundle.putString("address", bill.getDiachi());
+
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
+        btnback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
-
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Log.i("TAG", "onResume: ");
+        if(this.reloadNeed){
+            bills=new ArrayList<>();
+            billAdapter = new BillAdapter(this, R.layout.activity_item_bill, bills);
+            listViewBill.setAdapter(billAdapter);
+            doGetList();
+            Log.i("TAG", "onResume: reload");
+        }
+//        this.reloadNeed = false;
+    }
     public void doGetList() {
         try{
             Log.i("TAG", "doGetList: run1");
@@ -113,7 +134,11 @@ public class ListBill extends AppCompatActivity {
                 SoapObject soapItem=(SoapObject) soapArray.getProperty(i);
                 String mahd=soapItem.getProperty("mahoadon").toString();
                 String dateBill=soapItem.getProperty("dateBill").toString();
-                bills.add(new Bill(Integer.parseInt(mahd),dateBill));
+                String sodienthoai=soapItem.getProperty("sodienthoai").toString();
+                String diachi=soapItem.getProperty("diachi").toString();
+                double tonghoadon=Double.parseDouble(soapItem.getProperty("tonghoadon").toString());
+                Bill bill= new Bill(Integer.parseInt(mahd),dateBill,sodienthoai,diachi);
+                bills.add(bill);
             }
             billAdapter.notifyDataSetChanged();
         }catch (Exception e){

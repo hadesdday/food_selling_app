@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button2"
+            android:id="@+id/btnBackBillList"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:background="#FFEB3B"
@@ -143,11 +143,11 @@
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
     <Button
-        android:id="@+id/btnSave_BillDetails"
+        android:id="@+id/btnDelete_BillDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:text="Lưu"
+        android:layout_marginStart="130dp"
+        android:text="Hủy đơn hàng"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
