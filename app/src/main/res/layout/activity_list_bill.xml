@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnBackBillList"
+            android:id="@+id/btnBackCheckout"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:background="#FFEB3B"

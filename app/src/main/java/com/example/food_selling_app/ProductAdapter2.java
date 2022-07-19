@@ -21,22 +21,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapPrimitive;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
-
 import java.util.ArrayList;
 
-public class ProductAdapter extends ArrayAdapter<Product> {
+public class ProductAdapter2 extends ArrayAdapter<Product> {
     Activity context = null;
     ArrayList<Product> itemList = null;
     int layoutID;
     final String URL = "http://192.168.1.8:82/WebService.asmx";
     int currentPos = 0;
 
-    public ProductAdapter(@NonNull Activity context, int layoutID, @NonNull ArrayList<Product> itemList) {
+    public ProductAdapter2(@NonNull Activity context, int layoutID, @NonNull ArrayList<Product> itemList) {
         super(context, layoutID, itemList);
         this.layoutID = layoutID;
         this.context = context;
@@ -78,12 +72,10 @@ public class ProductAdapter extends ArrayAdapter<Product> {
                 builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
                         Log.i("TAG", "mahd: " + txtmahd.getText().toString());
                         Log.i("TAG", "masp: " + itemList.get(pos).getMasp());
-                        doDeleteItem(Integer.parseInt(txtmahd.getText().toString()), itemList.get(pos).getMasp());
                         itemList.remove(pos);
-                        ProductAdapter.this.notifyDataSetChanged();
+                        ProductAdapter2.this.notifyDataSetChanged();
                     }
                 });
                 builder.setNegativeButton("no", null);
@@ -97,10 +89,8 @@ public class ProductAdapter extends ArrayAdapter<Product> {
             @Override
             public void onClick(View view) {
                 int pos = (int) position;
-                currentPos=pos;
-                Log.i("TAG", "mahd: " + txtmahd.getText().toString());
-                Log.i("TAG", "masp: " + itemList.get(pos).getMasp());
-                onChangeAmountPopup(view, Integer.parseInt(txtmahd.getText().toString()), itemList.get(pos).getMasp());
+                currentPos = pos;
+                onChangeAmountPopup(view);
 
 
             }
@@ -109,40 +99,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
 
     }
 
-    public void doDeleteItem(int mahd, int masp) {
-        try {
-            Log.i("TAG", "doGetList: run1");
-            final String NAMESPACE = "http://localhost/";
-            final String METHOD_NAME = "deleteIteminBill";
-            final String SOAP_ACTION = NAMESPACE + METHOD_NAME;
-            SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
-//            SoapObject newProduct  =new SoapObject(NAMESPACE,"Product");
-            request.addProperty("mahd", mahd);
-            request.addProperty("masp", masp);
-//            request.addSoapObject(newProduct);
-            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-            envelope.dotNet = true;
-            envelope.setOutputSoapObject(request);
-            Log.i("TAG", "doGetList: run2");
-            HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
-            Log.i("TAG", "doGetList: run3");
-            androidHttpTransport.call(SOAP_ACTION, envelope);
-            SoapPrimitive soapPrimitive = (SoapPrimitive) envelope.getResponse();
-            Log.i("TAG", "doGetList: run4");
-            int ret = Integer.parseInt(soapPrimitive.toString());
-            String msg = "success";
-            if (ret <= 0)
-                msg = "false";
-
-            Log.i("TAG", "doGetList: run5:" + msg);
-
-
-        } catch (Exception e) {
-            Log.i("TAG", "error: " + e.toString());
-        }
-    }
-
-    public void onChangeAmountPopup(View view, int mahd, int masp) {
+    public void onChangeAmountPopup(View view) {
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.popup_change_quantity, null);
@@ -173,12 +130,11 @@ public class ProductAdapter extends ArrayAdapter<Product> {
             public void onClick(View view) {
                 int quantity = Integer.parseInt(txtChangeQuantity.getText().toString());
                 Log.i("TAG", "onClick: quantity " + quantity);
-                if (doChangeQuantity(mahd, masp, quantity)) {
-                    Product p=itemList.get(currentPos);
-                    p.setSoluongmua(quantity);
-                    ProductAdapter.this.notifyDataSetChanged();
-                    popupWindow.dismiss();
-                }
+
+                Product p = itemList.get(currentPos);
+                p.setSoluongmua(quantity);
+                ProductAdapter2.this.notifyDataSetChanged();
+                popupWindow.dismiss();
 
 
             }
@@ -186,45 +142,4 @@ public class ProductAdapter extends ArrayAdapter<Product> {
 
     }
 
-    public boolean doChangeQuantity(int mahd, int masp, int quantity) {
-        boolean result = false;
-        try {
-            Log.i("TAG", "doGetList: run1");
-            final String NAMESPACE = "http://localhost/";
-            final String METHOD_NAME = "changeQuantityProduct";
-            final String SOAP_ACTION = NAMESPACE + METHOD_NAME;
-            SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
-//            SoapObject newProduct  =new SoapObject(NAMESPACE,"Product");
-            request.addProperty("mahd", mahd);
-            request.addProperty("masp", masp);
-            request.addProperty("soluong", quantity);
-            Log.i("TAG", "onClick: quantity2: " + quantity);
-//            request.addSoapObject(newProduct);
-            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-            envelope.dotNet = true;
-            envelope.setOutputSoapObject(request);
-            Log.i("TAG", "doGetList: run2");
-            HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
-            Log.i("TAG", "doGetList: run3");
-            androidHttpTransport.call(SOAP_ACTION, envelope);
-            SoapPrimitive soapPrimitive = (SoapPrimitive) envelope.getResponse();
-            Log.i("TAG", "doGetList: run4");
-            int ret = Integer.parseInt(soapPrimitive.toString());
-            String msg = "success";
-            if (ret <= 0) {
-                msg = "false";
-                result = false;
-            } else {
-                result = true;
-            }
-
-            Log.i("TAG", "doGetList: run5:" + msg);
-
-
-        } catch (Exception e) {
-            Log.i("TAG", "error: " + e.toString());
-        }
-        return result;
-    }
 }
-

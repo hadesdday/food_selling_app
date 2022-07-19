@@ -29,7 +29,7 @@ public class BillDetails extends AppCompatActivity {
     Button deletebtn,backbtn;
     Bundle bundle;
 
-    final String URL="http://192.168.1.7:82/WebService.asmx";
+    final String URL="http://192.168.1.8:82/WebService.asmx";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +39,7 @@ public class BillDetails extends AppCompatActivity {
         address = (TextView) findViewById(R.id.textAddress_details);
         listItems = (ListView) findViewById(R.id.listItems);
         deletebtn=(Button) findViewById(R.id.btnDelete_BillDetails);
-        backbtn=(Button) findViewById(R.id.btnBackBillList);
+        backbtn=(Button) findViewById(R.id.btnBackCheckout);
         bundle = getIntent().getExtras();
 //        ArrayList<Product> products = bundle.getParcelableArrayList("products");
 //        Log.i("TAG", "doGetListItems: "+products.size());

@@ -43,11 +43,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnBackBillList"
+            android:id="@+id/btnBackCheckout"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:background="#FFEB3B"
-            android:foreground="@mipmap/ic_launcher_round"
+            android:foreground="@drawable/ic_b"
             android:textColor="#FFFFFF"
             tools:ignore="TextContrastCheck,SpeakableTextPresentCheck" />
 
@@ -65,7 +65,7 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="410dp"
+        android:layout_width="0dp"
         android:layout_height="29dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="10dp"
@@ -77,7 +77,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="409dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
@@ -105,8 +105,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name" />
+                android:inputType="textPersonName" />
         </LinearLayout>
 
         <LinearLayout
@@ -128,8 +127,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name" />
+                android:inputType="textPersonName" />
         </LinearLayout>
 
         <LinearLayout
@@ -151,8 +149,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name" />
+                android:inputType="textPersonName" />
         </LinearLayout>
 
     </LinearLayout>
@@ -162,19 +159,19 @@
         android:layout_width="0dp"
         android:layout_height="30dp"
         android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
         android:gravity="center_vertical"
         android:text="Giỏ hàng"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="333dp" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     <ListView
         android:id="@+id/listViewCart_checkout"
-        android:layout_width="412dp"
-        android:layout_height="322dp"
-        android:layout_marginStart="1dp"
+        android:layout_width="411dp"
+        android:layout_height="245dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -184,25 +181,27 @@
         android:id="@+id/btnCheckout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
         android:text="Thanh toán"
-        tools:layout_editor_absoluteX="139dp"
-        tools:layout_editor_absoluteY="688dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="199dp"
         android:layout_height="64dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="268dp">
+        android:layout_marginTop="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8">
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/rbCOD"
             android:layout_width="match_parent"
             android:layout_height="32dp"
             android:text="Thanh toán trực tiếp" />
 
         <RadioButton
-            android:id="@+id/radioButton4"
+            android:id="@+id/rdBank"
             android:layout_width="match_parent"
             android:layout_height="32dp"
             android:text="Chuyển khoản ngân hàng" />

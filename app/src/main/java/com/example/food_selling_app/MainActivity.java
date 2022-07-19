@@ -20,9 +20,20 @@ public class MainActivity extends AppCompatActivity {
                 openListBill();
             }
         });
+        Button checkout=(Button) findViewById(R.id.btnCheckoutmain);
+        checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCheckout();
+            }
+        });
     }
     public void openListBill(){
         Intent intent=new Intent(this,ListBill.class);
+        startActivity(intent);
+    }
+    public void openCheckout(){
+        Intent intent=new Intent(this,Checkout.class);
         startActivity(intent);
     }
 }
