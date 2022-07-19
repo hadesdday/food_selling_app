@@ -1,7 +1,5 @@
 package com.example.food_selling_app;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,7 +24,7 @@ public class ListBill extends Activity {
     BillAdapter billAdapter = null;
     ListView listViewBill = null;
     Button btnOrderedBill, btnFinishedBill, btnCancledBill,btnback;
-    final String URL="http://192.168.1.7:82/WebService.asmx";
+    final String URL="http://192.168.1.8:82/WebService.asmx";
 //    final String URL="https://localhost:44364/WebServiceProject.asmx";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +32,7 @@ public class ListBill extends Activity {
         setContentView(R.layout.activity_list_bill);
         btnOrderedBill = (Button) findViewById(R.id.btnOrderedBill);
         listViewBill = (ListView) findViewById(R.id.billListView);
-        btnback=(Button) findViewById(R.id.btnBackBillList) ;
+        btnback=(Button) findViewById(R.id.btnBackCheckout) ;
 //        Bill b1 = new Bill(1, "1/1/2022");
 //        ArrayList<Product> p1 = new ArrayList<>();
 //        p1.add(new Product("sp1", 10000, 1, "a"));
@@ -133,7 +131,7 @@ public class ListBill extends Activity {
                 Log.i("TAG", "doGetList: add");
                 SoapObject soapItem=(SoapObject) soapArray.getProperty(i);
                 String mahd=soapItem.getProperty("mahoadon").toString();
-                String dateBill=soapItem.getProperty("dateBill").toString();
+                String dateBill=soapItem.getProperty("ngayhoadon").toString();
                 String sodienthoai=soapItem.getProperty("sodienthoai").toString();
                 String diachi=soapItem.getProperty("diachi").toString();
                 double tonghoadon=Double.parseDouble(soapItem.getProperty("tonghoadon").toString());
