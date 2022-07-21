@@ -24,7 +24,7 @@ public class ListBill extends Activity {
     BillAdapter billAdapter = null;
     ListView listViewBill = null;
     Button btnOrderedBill, btnFinishedBill, btnCancledBill,btnback;
-    final String URL="http://192.168.1.8:82/WebService.asmx";
+    final String URL="http://192.168.1.2:82/WebService.asmx";
 //    final String URL="https://localhost:44364/WebServiceProject.asmx";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +77,9 @@ public class ListBill extends Activity {
                 Bill bill = (Bill) adapterView.getItemAtPosition(i);
 //                Log.i("TAG", "doGetListItems: "+bill.getProducts().size());
 //                bundle.putParcelableArrayList("products", bill.getProducts());
-                bundle.putInt("mahd", bill.getMahoadon());
-                bundle.putString("sdt", bill.getSodienthoai());
-                bundle.putString("address", bill.getDiachi());
+                bundle.putInt("mahd", bill.getBillId());
+                bundle.putString("sdt", bill.getPhoneNumber());
+                bundle.putString("address", bill.getAddress());
 
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -112,7 +112,7 @@ public class ListBill extends Activity {
             final String METHOD_NAME="getBillList";
             final String SOAP_ACTION=NAMESPACE+METHOD_NAME;
             SoapObject request =new SoapObject(NAMESPACE,METHOD_NAME);
-            request.addProperty("trangthai",1);
+            request.addProperty("status",1);
             SoapSerializationEnvelope envelope=new SoapSerializationEnvelope(SoapEnvelope.VER11);
             envelope.dotNet=true;
             envelope.setOutputSoapObject(request);
@@ -130,12 +130,12 @@ public class ListBill extends Activity {
             for(int i=0;i<soapArray.getPropertyCount();i++){
                 Log.i("TAG", "doGetList: add");
                 SoapObject soapItem=(SoapObject) soapArray.getProperty(i);
-                String mahd=soapItem.getProperty("mahoadon").toString();
-                String dateBill=soapItem.getProperty("ngayhoadon").toString();
-                String sodienthoai=soapItem.getProperty("sodienthoai").toString();
-                String diachi=soapItem.getProperty("diachi").toString();
-                double tonghoadon=Double.parseDouble(soapItem.getProperty("tonghoadon").toString());
-                Bill bill= new Bill(Integer.parseInt(mahd),dateBill,sodienthoai,diachi);
+                String idBill=soapItem.getProperty("idBill").toString();
+                String dateBill=soapItem.getProperty("dateBill").toString();
+                String phoneNumber=soapItem.getProperty("phoneNumber").toString();
+                String address=soapItem.getProperty("address").toString();
+                double billPrice=Double.parseDouble(soapItem.getProperty("billPrice").toString());
+                Bill bill= new Bill(Integer.parseInt(idBill),dateBill,phoneNumber,address);
                 bills.add(bill);
             }
             billAdapter.notifyDataSetChanged();

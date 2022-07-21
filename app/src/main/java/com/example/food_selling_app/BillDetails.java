@@ -29,7 +29,7 @@ public class BillDetails extends AppCompatActivity {
     Button deletebtn,backbtn;
     Bundle bundle;
 
-    final String URL="http://192.168.1.8:82/WebService.asmx";
+    final String URL="http://192.168.1.2:82/WebService.asmx";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +75,7 @@ public class BillDetails extends AppCompatActivity {
         });
     }
 
-    public void doDeleteBill(int idBill){
+    public void doDeleteBill(int billID){
         boolean result = false;
         try {
             Log.i("TAG", "doGetList: run1");
@@ -84,7 +84,7 @@ public class BillDetails extends AppCompatActivity {
             final String SOAP_ACTION = NAMESPACE + METHOD_NAME;
             SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
 //            SoapObject newProduct  =new SoapObject(NAMESPACE,"Product");
-            request.addProperty("mahd", idBill);
+            request.addProperty("billID", billID);
 //            request.addSoapObject(newProduct);
             SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
             envelope.dotNet = true;
@@ -137,13 +137,13 @@ public class BillDetails extends AppCompatActivity {
             for(int i=0;i<soapArray.getPropertyCount();i++){
                 Log.i("TAG", "doGetList: add");
                 SoapObject soapItem=(SoapObject) soapArray.getProperty(i);
-                int masp= Integer.parseInt(soapItem.getProperty("masp").toString());
-                Log.i("TAG", "get masp: "+masp);
-                String tensp=soapItem.getProperty("tensp").toString();
-                double gia= Double.parseDouble(soapItem.getProperty("gia").toString());
-                int soluongmua=Integer.parseInt(soapItem.getProperty("soluongmua").toString());
-                products.add(new Product(masp,tensp,gia,soluongmua));
-                productsClone.add(new Product(masp,tensp,gia,soluongmua));
+                int idProduct= Integer.parseInt(soapItem.getProperty("idProduct").toString());
+                Log.i("TAG", "get masp: "+idProduct);
+                String nameProduct=soapItem.getProperty("nameProduct").toString();
+                double priceProduct= Double.parseDouble(soapItem.getProperty("priceProduct").toString());
+                int amount=Integer.parseInt(soapItem.getProperty("amount").toString());
+                products.add(new Product(idProduct,nameProduct,priceProduct,amount));
+                productsClone.add(new Product(idProduct,nameProduct,priceProduct,amount));
             }
             productAdapter.notifyDataSetChanged();
         }catch (Exception e){
