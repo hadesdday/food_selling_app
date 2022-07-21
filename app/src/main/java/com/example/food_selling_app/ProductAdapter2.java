@@ -54,10 +54,10 @@ public class ProductAdapter2 extends ArrayAdapter<Product> {
 
             final Product p = itemList.get(position);
             Log.i("TAG", "toStirng: " + p.toString());
-            txttensp.setText(p.getTensp() + "");
-            txtngaydathang.setText(p.getNgaydathang() + "");
+            txttensp.setText(p.getFoodname() + "");
+            txtngaydathang.setText(p.getDateOrdered() + "");
             txtgiasp.setText(p.getTongGia() + "");
-            txtsoluong.setText(p.getSoluongmua() + "");
+            txtsoluong.setText(p.getAmount() + "");
 
         }
         Button b = (Button) convertView.findViewById(R.id.btnCancel_itemProduct);
@@ -73,7 +73,7 @@ public class ProductAdapter2 extends ArrayAdapter<Product> {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Log.i("TAG", "mahd: " + txtmahd.getText().toString());
-                        Log.i("TAG", "masp: " + itemList.get(pos).getMasp());
+                        Log.i("TAG", "masp: " + itemList.get(pos).getFoodId());
                         itemList.remove(pos);
                         ProductAdapter2.this.notifyDataSetChanged();
                     }
@@ -132,7 +132,7 @@ public class ProductAdapter2 extends ArrayAdapter<Product> {
                 Log.i("TAG", "onClick: quantity " + quantity);
 
                 Product p = itemList.get(currentPos);
-                p.setSoluongmua(quantity);
+                p.setAmount(quantity);
                 ProductAdapter2.this.notifyDataSetChanged();
                 popupWindow.dismiss();
 

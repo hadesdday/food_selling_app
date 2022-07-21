@@ -4,56 +4,56 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Product implements Parcelable {
-    private int masp;
-    private String tensp;
-    private double gia;
-    private int soluongmua;
-    private String ngaydathang;
+    private int foodId;
+    private String foodname;
+    private double price;
+    private int amount;
+    private String dateOrdered;
 
-    public Product(int masp,String tensp, double gia, int soluongmua) {
-        this.masp=masp;
-        this.tensp = tensp;
-        this.gia = gia;
-        this.soluongmua = soluongmua;
+    public Product(int foodId, String foodname, double price, int amount) {
+        this.foodId = foodId;
+        this.foodname = foodname;
+        this.price = price;
+        this.amount = amount;
     }
 
-    public int getMasp() {
-        return masp;
+    public int getFoodId() {
+        return foodId;
     }
 
-    public void setMasp(int masp) {
-        this.masp = masp;
+    public void setFoodId(int foodId) {
+        this.foodId = foodId;
     }
 
-    public String getTensp() {
-        return tensp;
+    public String getFoodname() {
+        return foodname;
     }
 
-    public double getGia() {
-        return gia;
+    public double getPrice() {
+        return price;
     }
     public double getTongGia(){
-        return gia*soluongmua;
+        return price * amount;
     }
 
-    public void setGia(double gia) {
-        this.gia = gia;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
-    public int getSoluongmua() {
-        return soluongmua;
+    public int getAmount() {
+        return amount;
     }
 
-    public void setSoluongmua(int soluongmua) {
-        this.soluongmua = soluongmua;
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
-    public String getNgaydathang() {
-        return ngaydathang;
+    public String getDateOrdered() {
+        return dateOrdered;
     }
 
-    public void setNgaydathang(String ngaydathang) {
-        this.ngaydathang = ngaydathang;
+    public void setDateOrdered(String dateOrdered) {
+        this.dateOrdered = dateOrdered;
     }
 
     public Product(Parcel in) {
@@ -74,10 +74,10 @@ public class Product implements Parcelable {
     };
 
     public void readFromParcel(Parcel in) {
-        tensp = in.readString();
-        gia = in.readDouble();
-        soluongmua = in.readInt();
-        ngaydathang=in.readString();
+        foodname = in.readString();
+        price = in.readDouble();
+        amount = in.readInt();
+        dateOrdered =in.readString();
 
     }
     public int describeContents() {
@@ -85,20 +85,20 @@ public class Product implements Parcelable {
     }
 
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(tensp);
-        dest.writeDouble(gia);
-        dest.writeInt(soluongmua);
-        dest.writeString(ngaydathang);
+        dest.writeString(foodname);
+        dest.writeDouble(price);
+        dest.writeInt(amount);
+        dest.writeString(dateOrdered);
     }
 
     @Override
     public String toString() {
         return "Product{" +
-                "masp=" + masp +
-                ", tensp='" + tensp + '\'' +
-                ", gia=" + gia +
-                ", soluongmua=" + soluongmua +
-                ", ngaydathang='" + ngaydathang + '\'' +
+                "masp=" + foodId +
+                ", tensp='" + foodname + '\'' +
+                ", gia=" + price +
+                ", soluongmua=" + amount +
+                ", ngaydathang='" + dateOrdered + '\'' +
                 '}';
     }
 }

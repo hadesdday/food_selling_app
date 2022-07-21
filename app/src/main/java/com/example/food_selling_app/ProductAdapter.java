@@ -33,7 +33,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
     Activity context = null;
     ArrayList<Product> itemList = null;
     int layoutID;
-    final String URL = "http://192.168.1.8:82/WebService.asmx";
+    final String URL = "http://192.168.1.2:82/WebService.asmx";
     int currentPos = 0;
 
     public ProductAdapter(@NonNull Activity context, int layoutID, @NonNull ArrayList<Product> itemList) {
@@ -60,10 +60,10 @@ public class ProductAdapter extends ArrayAdapter<Product> {
 
             final Product p = itemList.get(position);
             Log.i("TAG", "toStirng: " + p.toString());
-            txttensp.setText(p.getTensp() + "");
-            txtngaydathang.setText(p.getNgaydathang() + "");
+            txttensp.setText(p.getFoodname() + "");
+            txtngaydathang.setText(p.getDateOrdered() + "");
             txtgiasp.setText(p.getTongGia() + "");
-            txtsoluong.setText(p.getSoluongmua() + "");
+            txtsoluong.setText(p.getAmount() + "");
 
         }
         Button b = (Button) convertView.findViewById(R.id.btnCancel_itemProduct);
@@ -80,8 +80,8 @@ public class ProductAdapter extends ArrayAdapter<Product> {
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                         Log.i("TAG", "mahd: " + txtmahd.getText().toString());
-                        Log.i("TAG", "masp: " + itemList.get(pos).getMasp());
-                        doDeleteItem(Integer.parseInt(txtmahd.getText().toString()), itemList.get(pos).getMasp());
+                        Log.i("TAG", "masp: " + itemList.get(pos).getFoodId());
+                        doDeleteItem(Integer.parseInt(txtmahd.getText().toString()), itemList.get(pos).getFoodId());
                         itemList.remove(pos);
                         ProductAdapter.this.notifyDataSetChanged();
                     }
@@ -99,8 +99,8 @@ public class ProductAdapter extends ArrayAdapter<Product> {
                 int pos = (int) position;
                 currentPos=pos;
                 Log.i("TAG", "mahd: " + txtmahd.getText().toString());
-                Log.i("TAG", "masp: " + itemList.get(pos).getMasp());
-                onChangeAmountPopup(view, Integer.parseInt(txtmahd.getText().toString()), itemList.get(pos).getMasp());
+                Log.i("TAG", "masp: " + itemList.get(pos).getFoodId());
+                onChangeAmountPopup(view, Integer.parseInt(txtmahd.getText().toString()), itemList.get(pos).getFoodId());
 
 
             }
@@ -109,7 +109,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
 
     }
 
-    public void doDeleteItem(int mahd, int masp) {
+    public void doDeleteItem(int billId, int foodId) {
         try {
             Log.i("TAG", "doGetList: run1");
             final String NAMESPACE = "http://localhost/";
@@ -117,8 +117,8 @@ public class ProductAdapter extends ArrayAdapter<Product> {
             final String SOAP_ACTION = NAMESPACE + METHOD_NAME;
             SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
 //            SoapObject newProduct  =new SoapObject(NAMESPACE,"Product");
-            request.addProperty("mahd", mahd);
-            request.addProperty("masp", masp);
+            request.addProperty("billId", billId);
+            request.addProperty("foodId", foodId);
 //            request.addSoapObject(newProduct);
             SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
             envelope.dotNet = true;
@@ -142,7 +142,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         }
     }
 
-    public void onChangeAmountPopup(View view, int mahd, int masp) {
+    public void onChangeAmountPopup(View view, int billId, int foodId) {
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.popup_change_quantity, null);
@@ -173,9 +173,9 @@ public class ProductAdapter extends ArrayAdapter<Product> {
             public void onClick(View view) {
                 int quantity = Integer.parseInt(txtChangeQuantity.getText().toString());
                 Log.i("TAG", "onClick: quantity " + quantity);
-                if (doChangeQuantity(mahd, masp, quantity)) {
+                if (doChangeQuantity(billId, foodId, quantity)) {
                     Product p=itemList.get(currentPos);
-                    p.setSoluongmua(quantity);
+                    p.setAmount(quantity);
                     ProductAdapter.this.notifyDataSetChanged();
                     popupWindow.dismiss();
                 }
@@ -186,7 +186,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
 
     }
 
-    public boolean doChangeQuantity(int mahd, int masp, int quantity) {
+    public boolean doChangeQuantity(int billId, int foodId, int amount) {
         boolean result = false;
         try {
             Log.i("TAG", "doGetList: run1");
@@ -195,10 +195,10 @@ public class ProductAdapter extends ArrayAdapter<Product> {
             final String SOAP_ACTION = NAMESPACE + METHOD_NAME;
             SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
 //            SoapObject newProduct  =new SoapObject(NAMESPACE,"Product");
-            request.addProperty("mahd", mahd);
-            request.addProperty("masp", masp);
-            request.addProperty("soluong", quantity);
-            Log.i("TAG", "onClick: quantity2: " + quantity);
+            request.addProperty("billId", billId);
+            request.addProperty("foodId", foodId);
+            request.addProperty("amount", amount);
+            Log.i("TAG", "onClick: quantity2: " + amount);
 //            request.addSoapObject(newProduct);
             SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
             envelope.dotNet = true;

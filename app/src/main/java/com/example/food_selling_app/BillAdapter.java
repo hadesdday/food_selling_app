@@ -35,7 +35,7 @@ public class BillAdapter extends ArrayAdapter<Bill> {
             final TextView txtngaydathang = (TextView)convertView.findViewById(R.id.textngayhd);
             final TextView txtgiahd = (TextView)convertView.findViewById(R.id.texttonghd);
             final Bill b= itemList.get(position);
-            txtmahd.setText(b.getMahoadon()+"");
+            txtmahd.setText(b.getBillId()+"");
             txtngaydathang.setText(b.getDateBill()+"");
             txtgiahd.setText(b.getBillPrice()+"");
         }
