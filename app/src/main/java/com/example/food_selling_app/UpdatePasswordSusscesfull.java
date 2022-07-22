@@ -7,8 +7,8 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.mobile.LoginActivity;
-import com.example.mobile.R;
+import com.example.food_selling_app.LoginActivity;
+import com.example.food_selling_app.R;
 
 public class UpdatePasswordSusscesfull extends AppCompatActivity {
     Button btnLogin;

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">food_selling_app</string>
+    <string name="URL">http://192.168.1.9:82/WebService.asmx</string>
 </resources>
