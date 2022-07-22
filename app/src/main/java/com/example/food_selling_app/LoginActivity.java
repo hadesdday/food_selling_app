@@ -1,4 +1,4 @@
-package com.example.testwebservice;
+package com.example.food_selling_app;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
