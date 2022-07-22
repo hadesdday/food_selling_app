@@ -13,39 +13,53 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button billList=(Button) findViewById(R.id.btnBillList);
+        Button billList = (Button) findViewById(R.id.btnBillList);
         billList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openListBill();
             }
         });
-        Button checkout=(Button) findViewById(R.id.btnCheckoutmain);
+        Button checkout = (Button) findViewById(R.id.btnCheckoutmain);
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openCheckout();
             }
         });
-        Button btncontact=(Button) findViewById(R.id.contactbtn);
+        Button btncontact = (Button) findViewById(R.id.contactbtn);
         btncontact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openContact();
             }
         });
+        Button btnBillDetail = (Button) findViewById(R.id.btnBillDetail);
+        btnBillDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openBillDetail();
+            }
+        });
     }
-    public void openListBill(){
-        Intent intent=new Intent(this,ListBill.class);
-        startActivity(intent);
-    }
-    public void openCheckout(){
-        Intent intent=new Intent(this,Checkout.class);
-        startActivity(intent);
-    }
-    public void openContact(){
-        Intent intent=new Intent(this,Contact.class);
+
+    public void openListBill() {
+        Intent intent = new Intent(this, ListBill.class);
         startActivity(intent);
     }
 
+    public void openCheckout() {
+        Intent intent = new Intent(this, Checkout.class);
+        startActivity(intent);
+    }
+
+    public void openContact() {
+        Intent intent = new Intent(this, Contact.class);
+        startActivity(intent);
+    }
+
+    public void openBillDetail() {
+        Intent intent = new Intent(this, BillDetails2.class);
+        startActivity(intent);
+    }
 }

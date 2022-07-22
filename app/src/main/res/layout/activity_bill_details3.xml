@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BillDetails">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -20,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnBackCheckout"
+            android:id="@+id/btnBackCheckout3"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:background="#FFEB3B"
@@ -58,7 +57,7 @@
         android:layout_marginTop="5dp"
         android:gravity="center_vertical"
         android:text="Mã hóa đơn"
-        app:layout_constraintEnd_toStartOf="@+id/textMahd_details"
+        app:layout_constraintEnd_toStartOf="@+id/textMahd_details3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -85,36 +84,39 @@
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
     <TextView
-        android:id="@+id/textMahd_details"
+        android:id="@+id/textMahd_details3"
         android:layout_width="289dp"
         android:layout_height="30dp"
         android:layout_marginTop="5dp"
         android:gravity="center_vertical"
+        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <TextView
-        android:id="@+id/textPhone_details"
+        android:id="@+id/textPhone_details3"
         android:layout_width="289dp"
         android:layout_height="30dp"
         android:layout_marginTop="5dp"
         android:gravity="center_vertical"
+        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView9"
-        app:layout_constraintTop_toBottomOf="@+id/textMahd_details" />
+        app:layout_constraintTop_toBottomOf="@+id/textMahd_details3" />
 
     <TextView
-        android:id="@+id/textAddress_details"
+        android:id="@+id/textAddress_details3"
         android:layout_width="288dp"
         android:layout_height="30dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="1dp"
         android:gravity="center_vertical"
+        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView10"
-        app:layout_constraintTop_toBottomOf="@+id/textPhone_details" />
+        app:layout_constraintTop_toBottomOf="@+id/textPhone_details3" />
 
     <TextView
         android:id="@+id/textView14"
@@ -128,42 +130,16 @@
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
     <ListView
-        android:id="@+id/listItems"
-        android:layout_width="405dp"
-        android:layout_height="408dp"
+        android:id="@+id/listItems3"
+        android:layout_width="412dp"
+        android:layout_height="466dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="120dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="3dp"
-        android:gravity="center_vertical"
-        android:text="Tổng hóa đơn:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listItems" />
 
-    <TextView
-        android:id="@+id/textPrice_details"
-        android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:gravity="center_vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView11"
-        app:layout_constraintTop_toBottomOf="@+id/listItems" />
-
-    <Button
-        android:id="@+id/btnDelete_BillDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="130dp"
-        android:text="Hủy đơn hàng"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
