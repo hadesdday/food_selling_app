@@ -34,7 +34,7 @@ public class Checkout extends AppCompatActivity {
     ProductAdapter2 productAdapter = null;
     RadioGroup radioGroup;
     RadioButton radioButton;
-    final String URL = "http://192.168.1.2:82/WebService.asmx";
+     String URL ;
     double rate = 0.0;
     boolean hasVoucher = false;
     String usedVoucher = "";
@@ -43,6 +43,7 @@ public class Checkout extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
+        URL = getResources().getString(R.string.URL);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         editName = (EditText) findViewById(R.id.editName_checkout);

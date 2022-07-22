@@ -33,7 +33,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
     Activity context = null;
     ArrayList<Product> itemList = null;
     int layoutID;
-    final String URL = "http://192.168.1.2:82/WebService.asmx";
+    String URL ;
     int currentPos = 0;
 
     public ProductAdapter(@NonNull Activity context, int layoutID, @NonNull ArrayList<Product> itemList) {
@@ -41,6 +41,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         this.layoutID = layoutID;
         this.context = context;
         this.itemList = itemList;
+        URL = context.getResources().getString(R.string.URL);
     }
 
     @NonNull

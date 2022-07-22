@@ -29,11 +29,12 @@ public class BillDetails3 extends AppCompatActivity {
     Button backbtn;
     Bundle bundle;
 
-    final String URL="http://192.168.1.2:82/WebService.asmx";
+    String URL;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bill_details3);
+        URL=getResources().getString(R.string.URL);
         sdt = (TextView) findViewById(R.id.textPhone_details3);
         mahd = (TextView) findViewById(R.id.textMahd_details3);
         address = (TextView) findViewById(R.id.textAddress_details3);
