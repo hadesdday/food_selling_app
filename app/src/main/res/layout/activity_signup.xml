@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F6E864"
-    tools:context=".SignupActivity">
+    tools:context="com.example.food_selling_app.SignupActivity">
 
     <ImageView
         android:id="@+id/imageView"

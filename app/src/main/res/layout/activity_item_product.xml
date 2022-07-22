@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".ItemBill">
+
+    <TextView
+        android:id="@+id/texttensp"
+        android:layout_width="272dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="1dp"
+        android:gravity="center_vertical"
+        android:text="Tên sp"
+        app:layout_constraintEnd_toStartOf="@+id/btnCancel_itemProduct"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textngaydathang"
+        android:layout_width="133dp"
+        android:layout_height="34dp"
+        android:gravity="center"
+        android:text="ngày đặt hàng"
+        app:layout_constraintEnd_toStartOf="@+id/textsoluongsp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/textgiasp"
+        android:layout_width="121dp"
+        android:layout_height="33dp"
+        android:gravity="center"
+        android:text="giá tiền"
+        app:layout_constraintEnd_toStartOf="@+id/btnChange"
+        app:layout_constraintStart_toEndOf="@+id/textsoluongsp"
+        app:layout_constraintTop_toBottomOf="@+id/texttensp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/texttensp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
+
+    <TextView
+        android:id="@+id/textsoluongsp"
+        android:layout_width="80dp"
+        android:layout_height="34dp"
+        android:gravity="center"
+        android:text="Số lượng"
+        app:layout_constraintEnd_toStartOf="@+id/textgiasp"
+        app:layout_constraintStart_toEndOf="@+id/textngaydathang"
+        app:layout_constraintTop_toBottomOf="@+id/texttensp" />
+
+    <Button
+        android:id="@+id/btnCancel_itemProduct"
+        android:layout_width="78dp"
+        android:layout_height="47dp"
+        android:text="Hủy"
+        android:textSize="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/texttensp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnChange"
+        android:layout_width="77dp"
+        android:layout_height="47dp"
+        android:text="Thay đổi"
+        android:textSize="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/texttensp"
+        app:layout_constraintTop_toBottomOf="@+id/btnCancel_itemProduct" />
+</androidx.constraintlayout.widget.ConstraintLayout>

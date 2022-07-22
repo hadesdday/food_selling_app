@@ -1,4 +1,4 @@
-package com.example.mobile;
+package com.example.food_selling_app;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,9 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.mobile.LoginActivity;
+import com.example.mobile.R;
 
 public class UpdatePasswordSusscesfull extends AppCompatActivity {
     Button btnLogin;

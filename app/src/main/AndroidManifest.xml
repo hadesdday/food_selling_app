@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.mobile">
+    package="com.example.food_selling_app">
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,9 +21,6 @@
             android:name=".ChangePasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
-            android:exported="false" />
-        <activity
             android:name=".MoneyActivity"
             android:exported="false" />
         <activity
@@ -30,13 +28,31 @@
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
+            android:usesCleartextTraffic="true"
+            android:theme="@style/Theme.Food_selling_app"/>
+
+        <activity
+            android:name=".BillDetails"
+            android:exported="false" />
+        <activity
+            android:name=".Checkout"
+            android:exported="false" />
+        <activity
+            android:name=".ListBill"
+            android:exported="false" />
+        <activity
+            android:name=".ChangeBillInfor"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
