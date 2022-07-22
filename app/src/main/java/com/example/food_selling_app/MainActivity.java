@@ -27,6 +27,13 @@ public class MainActivity extends AppCompatActivity {
                 openCheckout();
             }
         });
+        Button btncontact=(Button) findViewById(R.id.contactbtn);
+        btncontact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openContact();
+            }
+        });
     }
     public void openListBill(){
         Intent intent=new Intent(this,ListBill.class);
@@ -36,4 +43,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent=new Intent(this,Checkout.class);
         startActivity(intent);
     }
+    public void openContact(){
+        Intent intent=new Intent(this,Contact.class);
+        startActivity(intent);
+    }
+
 }

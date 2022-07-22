@@ -113,6 +113,7 @@ public class ListBill extends Activity {
             final String SOAP_ACTION=NAMESPACE+METHOD_NAME;
             SoapObject request =new SoapObject(NAMESPACE,METHOD_NAME);
             request.addProperty("status",1);
+            request.addProperty("username","clientt");
             SoapSerializationEnvelope envelope=new SoapSerializationEnvelope(SoapEnvelope.VER11);
             envelope.dotNet=true;
             envelope.setOutputSoapObject(request);
