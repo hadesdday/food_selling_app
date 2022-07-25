@@ -8,12 +8,13 @@ public class Bill {
     private String dateBill;
     private String phoneNumber;
     private String address;
-
-    public Bill(int billId, String dateBill, String phoneNumber, String address) {
+    private double price;
+    public Bill(int billId, String dateBill, String phoneNumber, String address,double price) {
         this.billId = billId;
         this.dateBill = dateBill;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.price=price;
     }
 
     public int getBillId() {
@@ -64,5 +65,13 @@ public class Bill {
 
     public void setProducts(ArrayList<Product> products) {
         this.products = products;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

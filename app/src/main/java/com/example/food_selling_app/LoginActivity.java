@@ -24,7 +24,7 @@ public class LoginActivity extends Activity {
     Button btnLogin;
     SoapObject response;
 
-    private static final String URL = "http://192.168.1.2:44341/WebServiceMobile.asmx?WSDL";
+    private static final String URL = "http://192.168.1.7:44341/WebServiceMobile.asmx?WSDL";
     private static final String NAME_SPACE = "http://tempuri.org/";
     private static final String METHOD_NAME = "login";
     private static final String SOAP_ACTION = "http://tempuri.org/login";

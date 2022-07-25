@@ -41,6 +41,14 @@ public class MainActivity extends AppCompatActivity {
                 openBillDetail();
             }
         });
+        Button btnloginMain=(Button) findViewById(R.id.btnLoginMain);
+        btnloginMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void openListBill() {
