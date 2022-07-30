@@ -27,8 +27,8 @@ public class FilteredFood extends AppCompatActivity {
 
     FoodType foodType;
     TextView text;
-    ArrayList<com.example.foodapp.Food> foodArrayListFiltered;
-    com.example.foodapp.FoodAdapter foodAdapter;
+    ArrayList<com.example.food_selling_app.Food> foodArrayListFiltered;
+    com.example.food_selling_app.FoodAdapter foodAdapter;
     RecyclerView foodListFiltered;
 
     @Override
@@ -81,7 +81,7 @@ public class FilteredFood extends AppCompatActivity {
                     String foodDescription = item.getProperty("FoodDescription").toString();
                     int foodPrice = Integer.parseInt(item.getProperty("FoodPrice").toString());
                     int foodTypeId = Integer.parseInt(item.getProperty("FoodTypeId").toString());
-                    foodArrayListFiltered.add(new com.example.foodapp.Food(foodId, foodName, foodImage, foodDescription, foodPrice, foodTypeId));
+                    foodArrayListFiltered.add(new com.example.food_selling_app.Food(foodId, foodName, foodImage, foodDescription, foodPrice, foodTypeId));
                 }
             } catch (Exception e) {
                 exc = true;
@@ -113,16 +113,16 @@ public class FilteredFood extends AppCompatActivity {
 
     private void makeRecyclerView() {
         foodListFiltered = findViewById(R.id.foodListFiltered);
-        foodAdapter = new com.example.foodapp.FoodAdapter(this, foodArrayListFiltered);
+        foodAdapter = new com.example.food_selling_app.FoodAdapter(this, foodArrayListFiltered);
         foodListFiltered.setHasFixedSize(true);
         foodListFiltered.setLayoutManager(new GridLayoutManager(this, 2));
         foodListFiltered.setAdapter(foodAdapter);
 
         foodListFiltered.addOnItemTouchListener
-                (new com.example.foodapp.RecyclerTouchListener(this, foodListFiltered, new com.example.foodapp.RecyclerTouchListener.ClickListener() {
+                (new com.example.food_selling_app.RecyclerTouchListener(this, foodListFiltered, new com.example.food_selling_app.RecyclerTouchListener.ClickListener() {
                     @Override
                     public void onTouch(View view, int position) {
-                        Intent in = new Intent(FilteredFood.this, com.example.foodapp.FoodByFoodIdActivity.class);
+                        Intent in = new Intent(FilteredFood.this, com.example.food_selling_app.FoodByFoodIdActivity.class);
                         in.putExtra("food", foodArrayListFiltered.get(position));
                         in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(in);

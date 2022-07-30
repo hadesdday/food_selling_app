@@ -53,4 +53,14 @@
         android:text="login"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnBillDetail" />
+
+    <Button
+        android:id="@+id/btnMain2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="18dp"
+        android:text="main2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLoginMain" />
 </androidx.constraintlayout.widget.ConstraintLayout>
