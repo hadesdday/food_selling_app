@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,26 +20,26 @@ import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
-
 public class ProfileActivity extends AppCompatActivity {
     EditText edtProUser, edtProPass, edtProEmail, edtProAddress, edtProPhone, edtProName;
     Button btnProUpdate;
     SoapPrimitive response;
 
-//    private static final String URL = "http://192.168.1.2:44390/WebService.asmx?WSDL";
+//    private static final String URL = "http://192.168.1.2:44346/WebService.asmx?WSDL";
     private String URL = "";
-    private static final String NAME_SPACE = "http://tempuri.org/";
+    private static final String NAME_SPACE = "http://localhost/";
+
     private static final String METHOD_NAME1 = "updateMail";
-    private static final String SOAP_ACTION1 = "http://tempuri.org/updateMail";
+    private static final String SOAP_ACTION1 = "http://localhost/updateMail";
 
     private static final String METHOD_NAME2 = "updateName";
-    private static final String SOAP_ACTION2 = "http://tempuri.org/updateName";
+    private static final String SOAP_ACTION2 = "http://localhost/updateName";
 
     private static final String METHOD_NAME3 = "updateAddress";
-    private static final String SOAP_ACTION3 = "http://tempuri.org/updateAddress";
+    private static final String SOAP_ACTION3 = "http://localhost/updateAddress";
 
     private static final String METHOD_NAME4 = "updatePhoneNumber";
-    private static final String SOAP_ACTION4 = "http://tempuri.org/updatePhoneNumber";
+    private static final String SOAP_ACTION4 = "http://localhost/updatePhoneNumber";
 
     public static final String MyPREFERENCES = "MyPrefs";
     public static final String Username = "usernameKey";
@@ -78,7 +79,6 @@ public class ProfileActivity extends AppCompatActivity {
         password = sharedpreferences.getString(Password, "");
         email = sharedpreferences.getString(Email, "");
 
-        //get customer
         name = sharedpreferences.getString(Name, "");
         address = sharedpreferences.getString(Address, "");
         phone = sharedpreferences.getString(Phone, "");
@@ -91,6 +91,7 @@ public class ProfileActivity extends AppCompatActivity {
         edtProAddress.setText(address);
         edtProPhone.setText(phone);
     }
+
 
     private class updateMail extends AsyncTask<String, Void, Void> {
         private ProgressDialog dialog = new ProgressDialog(ProfileActivity.this);
