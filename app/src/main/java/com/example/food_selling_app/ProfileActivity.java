@@ -25,7 +25,8 @@ public class ProfileActivity extends AppCompatActivity {
     Button btnProUpdate;
     SoapPrimitive response;
 
-    private static final String URL = "http://192.168.1.2:44390/WebService.asmx?WSDL";
+//    private static final String URL = "http://192.168.1.2:44390/WebService.asmx?WSDL";
+    private String URL = "";
     private static final String NAME_SPACE = "http://tempuri.org/";
     private static final String METHOD_NAME1 = "updateMail";
     private static final String SOAP_ACTION1 = "http://tempuri.org/updateMail";
@@ -54,6 +55,8 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        URL = getResources().getString(R.string.URL);
 
         edtProUser = findViewById(R.id.edtProUser);
         edtProPass = findViewById(R.id.edtProPass);

@@ -27,7 +27,8 @@ public class LoginActivity extends Activity {
     Button btnLogin;
     SoapObject response;
 
-    private static final String URL = "http://192.168.1.2:44390/WebService.asmx?WSDL";
+//    private static final String URL = "http://192.168.1.2:44390/WebService.asmx?WSDL";
+    private String URL = "";
     private static final String NAME_SPACE = "http://tempuri.org/";
     private static final String METHOD_NAME = "getInfo";
     private static final String SOAP_ACTION = "http://tempuri.org/getInfo";
@@ -51,6 +52,8 @@ public class LoginActivity extends Activity {
         StrictMode.ThreadPolicy policy =
                 new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
+        URL = getResources().getString(R.string.URL);
 
         edtUser = findViewById(R.id.edtUserS);
         edtPass = findViewById(R.id.edtPassS);
