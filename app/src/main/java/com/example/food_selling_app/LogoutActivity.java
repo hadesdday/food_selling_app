@@ -41,5 +41,13 @@ public class LogoutActivity extends Activity {
                 startActivity(in);
             }
         });
+        Button checkout=(Button) findViewById(R.id.btncheckout);
+        checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent in = new Intent(LogoutActivity.this, Checkout.class);
+                startActivity(in);
+            }
+        });
     }
 }

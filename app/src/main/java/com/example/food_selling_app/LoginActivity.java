@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,11 +29,13 @@ public class LoginActivity extends Activity {
     SoapObject response;
 
 //    private static final String URL = "http://192.168.1.2:44390/WebService.asmx?WSDL";
-    private String URL = "";
-    private static final String NAME_SPACE = "http://tempuri.org/";
-    private static final String METHOD_NAME = "getInfo";
-    private static final String SOAP_ACTION = "http://tempuri.org/getInfo";
+    private static final String URL = "http://192.168.1.3:85/WebService.asmx?WSDL";
 
+//    private static final String NAME_SPACE = "http://tempuri.org/";
+    private static final String NAME_SPACE = "http://localhost/";
+    private static final String METHOD_NAME = "getInfo";
+//    private static final String SOAP_ACTION = "http://tempuri.org/getInfo";
+    private static final String SOAP_ACTION = NAME_SPACE+METHOD_NAME;
     public static final String MyPREFERENCES = "MyPrefs";
     public static final String Username = "usernameKey";
     public static final String Password = "passKey";
@@ -52,8 +55,6 @@ public class LoginActivity extends Activity {
         StrictMode.ThreadPolicy policy =
                 new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
-        URL = getResources().getString(R.string.URL);
 
         edtUser = findViewById(R.id.edtUserS);
         edtPass = findViewById(R.id.edtPassS);
@@ -122,6 +123,7 @@ public class LoginActivity extends Activity {
 
                 response = (SoapObject) envelope.getResponse();
             }catch (Exception e) {
+                Log.i("TAG", "doInBackground login: "+e.toString());
                 e.printStackTrace();
             }
             return null;

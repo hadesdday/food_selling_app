@@ -32,8 +32,8 @@ public class ShowDetailActivity extends AppCompatActivity {
     private void getBundle() {
         object = (ProductDomain)getIntent().getSerializableExtra("object");
 
-        int drawableResourceId = this.getResources().getIdentifier(object.getFoodImage(), "drawable", this.getPackageName());
-        Glide.with(this).load(drawableResourceId).into(picFood);
+//        int drawableResourceId = this.getResources().getIdentifier(object.getFoodImage(), "drawable", this.getPackageName());
+//        Glide.with(this).load(drawableResourceId).into(picFood);
 
         titleTxt.setText(object.getFoodName());
         feeTxt.setText(object.getFoodPrice() + "đ");

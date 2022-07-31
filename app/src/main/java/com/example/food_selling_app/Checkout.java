@@ -2,6 +2,8 @@ package com.example.food_selling_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -39,6 +41,14 @@ public class Checkout extends AppCompatActivity {
     boolean hasVoucher = false;
     String usedVoucher = "";
 
+    SharedPreferences sharedpreferences;
+    public static final String MyPREFERENCES = "MyPrefs";
+    public static final String Username = "usernameKey";
+    public static final String Password = "passKey";
+    public static final String Email = "mailKey";
+    public static final String Name = "nameKey";
+    public static final String Address = "addressKey";
+    public static final String Phone = "phoneKey";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +64,15 @@ public class Checkout extends AppCompatActivity {
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         btnBack = (Button) findViewById(R.id.btnBackCheckout);
         btnVoucher = (Button) findViewById(R.id.btnVoucher);
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        String name = sharedpreferences.getString(Name, "");
+        String address = sharedpreferences.getString(Address, "");
+        String phone = sharedpreferences.getString(Phone, "");
+        editName.setText(name);
+        editAddress.setText(address);
+        editPhone.setText(phone);
+        Log.i("TAG", "onClick not login !!!!!!!!: "+(sharedpreferences.getString(Username, "")==""));
+
         products.add(new Product(1, "abc", 10000, 2));
         products.add(new Product(2, "xyz", 50000, 3));
         products.add(new Product(3, "asd", 100000, 1));
@@ -112,7 +131,7 @@ public class Checkout extends AppCompatActivity {
                         totalBill += p.getTongGia();
                     }
                     totalBill = (int) (totalBill * (1 - rate));
-                    int billID = doInsertBill(editName.getText().toString(), totalBill, editPhone.getText().toString(), editAddress.getText().toString(), pttt);
+                    int billID = doInsertBill(editName.getText().toString(), totalBill, editPhone.getText().toString(), editAddress.getText().toString(), pttt, sharedpreferences.getString(Username, ""));
                     for (Product p : products) {
                         doInsertBillDetail(billID, p.getFoodId(), p.getAmount());
                     }
@@ -275,10 +294,10 @@ public class Checkout extends AppCompatActivity {
         return ret;
     }
 
-    public int doInsertBill(String name, int billPrice, String phoneNumber, String address, String payment) {
+    public int doInsertBill(String name, int billPrice, String phoneNumber, String address, String payment,String username) {
         int ret = 0;
         try {
-            Log.i("TAG", "doGetList: run1");
+            Log.i("TAG", "doGetList insertBill: run1");
             final String NAMESPACE = "http://localhost/";
             final String METHOD_NAME = "insertBill";
             final String SOAP_ACTION = NAMESPACE + METHOD_NAME;
@@ -289,6 +308,7 @@ public class Checkout extends AppCompatActivity {
             request.addProperty("phoneNumber", phoneNumber);
             request.addProperty("address", address);
             request.addProperty("payment", payment);
+            request.addProperty("username", username);
 //            request.addSoapObject(newProduct);
             SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
             envelope.dotNet = true;
@@ -316,7 +336,7 @@ public class Checkout extends AppCompatActivity {
     public int doInsertBillDetail(int billId, int foodId, int amount) {
         int ret = 0;
         try {
-            Log.i("TAG", "doGetList: run1");
+            Log.i("TAG", "doGetList add bill detail: run1");
             final String NAMESPACE = "http://localhost/";
             final String METHOD_NAME = "addBillDetail";
             final String SOAP_ACTION = NAMESPACE + METHOD_NAME;

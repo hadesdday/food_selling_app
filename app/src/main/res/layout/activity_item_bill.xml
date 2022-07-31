@@ -31,12 +31,4 @@
         app:layout_constraintStart_toEndOf="@+id/textngayhd"
         app:layout_constraintTop_toBottomOf="@+id/textMaHD" />
 
-    <TextView
-        android:id="@+id/textBillPrice"
-        android:layout_width="160dp"
-        android:layout_height="33dp"
-        android:gravity="center_vertical"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/textMaHD"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

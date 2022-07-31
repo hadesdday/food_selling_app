@@ -1,7 +1,9 @@
 package com.example.food_selling_app;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -40,29 +42,7 @@ public class ListBill extends Activity {
         btnback = (Button) findViewById(R.id.btnBackCheckout);
         btnFinishedBill = (Button) findViewById(R.id.btnFinishedBill);
         btnCancledBill = (Button) findViewById(R.id.btnCancledBill);
-//        Bill b1 = new Bill(1, "1/1/2022");
-//        ArrayList<Product> p1 = new ArrayList<>();
-//        p1.add(new Product("sp1", 10000, 1, "a"));
-//        p1.add(new Product("sp2", 15000, 2, "a"));
-//        p1.add(new Product("sp4", 20000, 3, "a"));
-//        b1.setProducts(p1);
-//        bills.add(b1);
-//
-//        Bill b2 = new Bill(2, "2/1/2022");
-//        ArrayList<Product> p2 = new ArrayList<>();
-//        p2.add(new Product("sp1", 10000, 1, "a"));
-//        p2.add(new Product("sp3", 25000, 2, "a"));
-//        p2.add(new Product("sp4", 20000, 3, "a"));
-//        b2.setProducts(p2);
-//        bills.add(b2);
-//
-//        Bill b3 = new Bill(3, "1/1/2022");
-//        ArrayList<Product> p3 = new ArrayList<>();
-//        p3.add(new Product("sp1", 10000, 1, "a"));
-//        p3.add(new Product("sp4", 20000, 2, "a"));
-//        p3.add(new Product("sp8", 60000, 3, "a"));
-//        b3.setProducts(p3);
-//        bills.add(b3);
+
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -70,7 +50,8 @@ public class ListBill extends Activity {
         intent = new Intent(ListBill.this, BillDetails.class);
         listViewBill.setAdapter(billAdapter);
         billAdapter.notifyDataSetChanged();
-        doGetList(1, "clientt");
+//        doGetList(1, "clientt");
+        new GetBillListWebservice().execute("1","clientt");
         btnOrderedBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,7 +59,7 @@ public class ListBill extends Activity {
                 billAdapter = new BillAdapter(ListBill.this, R.layout.activity_item_bill, bills);
                 listViewBill.setAdapter(billAdapter);
                 billAdapter.notifyDataSetChanged();
-                doGetList(1, "clientt");
+                new GetBillListWebservice().execute("1","clientt");
             }
         });
         btnFinishedBill.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +69,7 @@ public class ListBill extends Activity {
                 billAdapter = new BillAdapter(ListBill.this, R.layout.activity_item_bill, bills);
                 listViewBill.setAdapter(billAdapter);
                 billAdapter.notifyDataSetChanged();
-                doGetList(2, "clientt");
+                new GetBillListWebservice().execute("2","clientt");
             }
         });
         btnCancledBill.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +79,7 @@ public class ListBill extends Activity {
                 billAdapter = new BillAdapter(ListBill.this, R.layout.activity_item_bill, bills);
                 listViewBill.setAdapter(billAdapter);
                 billAdapter.notifyDataSetChanged();
-                doGetList(3, "clientt");
+                new GetBillListWebservice().execute("3","clientt");
             }
         });
         listViewBill.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -112,7 +93,7 @@ public class ListBill extends Activity {
                 bundle.putInt("mahd", bill.getBillId());
                 bundle.putString("sdt", bill.getPhoneNumber());
                 bundle.putString("address", bill.getAddress());
-
+                bundle.putDouble("price",bill.getPrice());
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -141,19 +122,18 @@ public class ListBill extends Activity {
         });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.i("TAG", "onResume: ");
-        if (this.reloadNeed) {
-            bills = new ArrayList<>();
-            billAdapter = new BillAdapter(this, R.layout.activity_item_bill, bills);
-            listViewBill.setAdapter(billAdapter);
-            doGetList(1, "clientt");
-            Log.i("TAG", "onResume: reload");
-        }
-//        this.reloadNeed = false;
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        Log.i("TAG", "onResume: ");
+//        if (this.reloadNeed) {
+//            bills = new ArrayList<>();
+//            billAdapter = new BillAdapter(this, R.layout.activity_item_bill, bills);
+//            listViewBill.setAdapter(billAdapter);
+//            doGetList(1, "clientt");
+//            Log.i("TAG", "onResume: reload");
+//        }
+//    }
 
     public void doGetList(int status, String username) {
         try {
@@ -186,12 +166,68 @@ public class ListBill extends Activity {
                 String phoneNumber = soapItem.getProperty("phoneNumber").toString();
                 String address = soapItem.getProperty("address").toString();
                 double billPrice = Double.parseDouble(soapItem.getProperty("billPrice").toString());
-                Bill bill = new Bill(Integer.parseInt(idBill), dateBill, phoneNumber, address);
+                Bill bill = new Bill(Integer.parseInt(idBill), dateBill, phoneNumber, address,billPrice);
+
                 bills.add(bill);
             }
             billAdapter.notifyDataSetChanged();
         } catch (Exception e) {
             Log.i("TAG", "doGetList: " + e.toString());
+        }
+    }
+    private class GetBillListWebservice extends AsyncTask<String, Void, Void> {
+        private ProgressDialog dialog = new ProgressDialog(ListBill.this);
+        boolean result = false;
+        @Override
+        protected void onPreExecute() {
+            dialog.setMessage("Loading...");
+            dialog.show();
+        }
+        @Override
+        protected Void doInBackground(String... strings) {
+            try {
+                Log.i("TAG", "doGetList: run1");
+                final String NAMESPACE = "http://localhost/";
+                final String METHOD_NAME = "getBillList";
+                final String SOAP_ACTION = NAMESPACE + METHOD_NAME;
+                SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
+                request.addProperty("status", Integer.parseInt(strings[0]));
+                request.addProperty("username", strings[1]);
+                SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+                envelope.dotNet = true;
+                envelope.setOutputSoapObject(request);
+                MarshalFloat marshal = new MarshalFloat();
+                marshal.register(envelope);
+                Log.i("TAG", "doGetList: run2");
+                HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+                Log.i("TAG", "doGetList: run3");
+                androidHttpTransport.call(SOAP_ACTION, envelope);
+                Log.i("TAG", "doGetList: run4");
+                SoapObject soapArray = (SoapObject) envelope.getResponse();
+                Log.i("TAG", "doGetList: run5");
+                Log.i("TAG", "doGetList: " + soapArray.getPropertyCount());
+                bills.clear();
+                for (int i = 0; i < soapArray.getPropertyCount(); i++) {
+                    Log.i("TAG", "doGetList: add");
+                    SoapObject soapItem = (SoapObject) soapArray.getProperty(i);
+                    String idBill = soapItem.getProperty("idBill").toString();
+                    String dateBill = soapItem.getProperty("dateBill").toString();
+                    String phoneNumber = soapItem.getProperty("phoneNumber").toString();
+                    String address = soapItem.getProperty("address").toString();
+                    double billPrice = Double.parseDouble(soapItem.getProperty("billPrice").toString());
+                    Bill bill = new Bill(Integer.parseInt(idBill), dateBill, phoneNumber, address,billPrice);
+                    bills.add(bill);
+                }
+                billAdapter.notifyDataSetChanged();
+            } catch (Exception e) {
+                Log.i("TAG", "doGetList: " + e.toString());
+            }
+            return null;
+        }
+        protected void onPostExecute(Void v) {
+            if(dialog.isShowing()) {
+                dialog.dismiss();
+            }
         }
     }
 }

@@ -42,7 +42,7 @@ dependencies {
     implementation 'com.android.volley:volley:1.2.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.code.gson:gson:2.8.6'
-    implementation files('libs/ksoap2-android-assembly-3.6.4-jar-with-dependencies.jar')
+//    implementation files('libs/ksoap2-android-assembly-3.6.4-jar-with-dependencies.jar')
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.github.bumptech.glide:glide:4.13.2'

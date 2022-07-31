@@ -41,6 +41,54 @@ public class MainActivity extends AppCompatActivity {
                 openBillDetail();
             }
         });
+        Button btnloginMain=(Button) findViewById(R.id.btnLoginMain);
+        btnloginMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+        Button main2=(Button) findViewById(R.id.btnMain2);
+        main2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+                startActivity(intent);
+            }
+        });
+        Button logout=(Button) findViewById(R.id.logout);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, LogoutActivity.class);
+                startActivity(intent);
+            }
+        });
+        Button cart=(Button) findViewById(R.id.cartbtn);
+        cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, CartListActivity.class);
+                startActivity(intent);
+            }
+        });
+        Button addcart=(Button) findViewById(R.id.addcartbtn);
+        addcart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ShowDetailActivity.class);
+                startActivity(intent);
+            }
+        });
+        Button foodidbtn=(Button) findViewById(R.id.foodidbtn);
+        foodidbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, FoodByFoodIdActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void openListBill() {
