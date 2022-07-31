@@ -22,7 +22,7 @@ public class ChangePasswordActivity extends Activity {
     EditText edtUsername, edtNewPass, edtConfirmPass;
     Button btnUpdatePass;
     SoapPrimitive response;
-//adwádsa
+
     private static final String URL = "http://192.168.1.2:44341/WebServiceMobile.asmx?WSDL";
     private static final String NAME_SPACE = "http://tempuri.org/";
     private static final String METHOD_NAME = "changePassword";

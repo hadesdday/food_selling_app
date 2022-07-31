@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F6E864"
-    tools:context="com.example.food_selling_app.SignupActivity">
+    tools:context=".SignupActivity">
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="220dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="200dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="20dp"
         android:src="@drawable/logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +21,7 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text="Đăng ký"
         android:textColor="#FB6D00"
         android:textSize="40dp"
@@ -33,7 +33,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="320dp"
+        android:layout_marginTop="270dp"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/textView2">
 
@@ -66,28 +66,8 @@
                 android:gravity="center"
                 android:layout_marginTop="8dp">
 
-            <EditText
-                android:id="@+id/edtPassS"
-                android:layout_width="350dp"
-                android:layout_height="50dp"
-                android:paddingLeft="12dp"
-                android:drawablePadding="12dp"
-                android:drawableLeft="@drawable/pass"
-                android:drawableTint="#676767"
-                android:background="@drawable/form_background"
-                android:ems="10"
-                android:inputType="textPassword"
-                android:hint="Mật khẩu" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:layout_marginTop="8dp">
-
                 <EditText
-                    android:id="@+id/edtConfPassS"
+                    android:id="@+id/edtPassS"
                     android:layout_width="350dp"
                     android:layout_height="50dp"
                     android:paddingLeft="12dp"
@@ -97,7 +77,30 @@
                     android:background="@drawable/form_background"
                     android:ems="10"
                     android:inputType="textPassword"
-                    android:hint="Xác nhận mật khẩu" />
+                    android:hint="Mật khẩu" />
+            </TableRow>
+
+
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/edtEmailS"
+                    android:layout_width="350dp"
+                    android:layout_height="50dp"
+                    android:paddingLeft="12dp"
+                    android:drawableTint="#676767"
+                    android:drawableLeft="@drawable/email"
+                    android:background="@drawable/form_background"
+                    android:drawablePadding="12dp"
+                    android:ems="10"
+                    android:inputType="textEmailAddress"
+                    android:hint="Địa chỉ Email"/>
+
             </TableRow>
 
             <TableRow
@@ -106,18 +109,60 @@
                 android:gravity="center"
                 android:layout_marginTop="8dp">
 
-            <EditText
-                android:id="@+id/edtEmailS"
-                android:layout_width="350dp"
-                android:layout_height="50dp"
-                android:paddingLeft="12dp"
-                android:drawableTint="#676767"
-                android:drawableLeft="@drawable/email"
-                android:background="@drawable/form_background"
-                android:drawablePadding="12dp"
-                android:ems="10"
-                android:inputType="textEmailAddress"
-                android:hint="Địa chỉ Email"/>
+                <EditText
+                    android:id="@+id/edtNameS"
+                    android:layout_width="350dp"
+                    android:layout_height="50dp"
+                    android:paddingLeft="12dp"
+                    android:drawableTint="#676767"
+                    android:drawableLeft="@drawable/name"
+                    android:background="@drawable/form_background"
+                    android:drawablePadding="12dp"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:hint="Tên"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/edtAddressS"
+                    android:layout_width="350dp"
+                    android:layout_height="50dp"
+                    android:paddingLeft="12dp"
+                    android:drawableTint="#676767"
+                    android:drawableLeft="@drawable/location"
+                    android:background="@drawable/form_background"
+                    android:drawablePadding="12dp"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:hint="Địa chỉ"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/edtPhoneS"
+                    android:layout_width="350dp"
+                    android:layout_height="50dp"
+                    android:paddingLeft="12dp"
+                    android:drawableTint="#676767"
+                    android:drawableLeft="@drawable/phone"
+                    android:background="@drawable/form_background"
+                    android:drawablePadding="12dp"
+                    android:ems="10"
+                    android:inputType="phone"
+                    android:hint="Số điện thoại"/>
 
             </TableRow>
 
@@ -144,7 +189,7 @@
                 android:layout_marginTop="14dp">
 
                 <Button
-                    android:id="@+id/btnSignup"
+                    android:id="@+id/btnSignin"
                     android:layout_width="350dp"
                     android:layout_height="50dp"
                     android:background="@drawable/btn_background"
