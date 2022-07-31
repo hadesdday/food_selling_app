@@ -23,16 +23,18 @@ public class ChangePasswordActivity extends Activity {
     Button btnUpdatePass;
     SoapPrimitive response;
 
-    private static final String URL = "http://192.168.1.2:44341/WebServiceMobile.asmx?WSDL";
-    private static final String NAME_SPACE = "http://tempuri.org/";
+//    private static final String URL = "http://192.168.1.2:44341/WebServiceMobile.asmx?WSDL";
+    private String URL = "";
+    private static final String NAME_SPACE = "http://localhost/";
     private static final String METHOD_NAME = "changePassword";
-    private static final String SOAP_ACTION = "http://tempuri.org/changePassword";
+    private static final String SOAP_ACTION = "http://localhost/changePassword";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
 
+        URL = getResources().getString(R.string.URL);
         edtUsername = findViewById(R.id.edtUsername);
         edtNewPass = findViewById(R.id.edtNewPass);
         edtConfirmPass = findViewById(R.id.edtConfirmPass);
