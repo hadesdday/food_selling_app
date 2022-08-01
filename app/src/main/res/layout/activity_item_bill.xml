@@ -9,6 +9,8 @@
         android:id="@+id/textMaHD"
         android:layout_width="247dp"
         android:layout_height="33dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
         android:gravity="center_vertical"
         android:text="mahd"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,16 +20,19 @@
         android:id="@+id/textngayhd"
         android:layout_width="205dp"
         android:layout_height="33dp"
+        android:layout_marginStart="10dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textMaHD" />
 
     <TextView
         android:id="@+id/texttonghd"
-        android:layout_width="205dp"
+        android:layout_width="0dp"
         android:layout_height="32dp"
         android:layout_marginStart="1dp"
+        android:layout_marginEnd="10dp"
         android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textngayhd"
         app:layout_constraintTop_toBottomOf="@+id/textMaHD" />
 
