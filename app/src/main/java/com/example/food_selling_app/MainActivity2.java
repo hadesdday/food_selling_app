@@ -28,8 +28,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class MainActivity2 extends AppCompatActivity {
-    private final String NAMESPACE = "http://192.168.0.177:44321/";
-    private final String URL = "http://192.168.0.177/TheWebService/webservice.asmx?WSDL";
+    private final String NAMESPACE = getResources().getString(R.string.NAMESPACE1);
+    private final String URL = getResources().getString(R.string.URL1);
 
     Spinner foodTypeList;
     ArrayList<FoodType> foodTypeArrayList;
@@ -43,7 +43,6 @@ public class MainActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         new doFoodTypeList().execute();
         new doFoodList().execute();
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
     @Override
@@ -52,6 +51,22 @@ public class MainActivity2 extends AppCompatActivity {
         MenuItem search = menu.findItem(R.id.search);
         MenuItem cart = menu.findItem(R.id.cart);
         SearchView searchView = (SearchView) search.getActionView();
+        searchView.setQueryHint("Tìm kiếm món ăn");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                Intent intent = new Intent(MainActivity2.this, FoodSearchActivity.class);
+                intent.putExtra("query", s);
+                startActivity(intent);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+
         cart.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {

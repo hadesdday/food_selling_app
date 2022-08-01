@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,21 +20,18 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
-
 public class LoginActivity extends Activity {
     EditText edtUser, edtPass;
     TextView txtError, txtsignup, txtforgotpass;
     Button btnLogin;
     SoapObject response;
 
-//    private static final String URL = "http://192.168.1.2:44390/WebService.asmx?WSDL";
-    private static final String URL = "http://192.168.1.3:85/WebService.asmx?WSDL";
-
-//    private static final String NAME_SPACE = "http://tempuri.org/";
+//    private static final String URL = "http://192.168.1.2:44346/WebService.asmx?WSDL";
+    private String URL = "";
     private static final String NAME_SPACE = "http://localhost/";
-    private static final String METHOD_NAME = "getInfo";
-//    private static final String SOAP_ACTION = "http://tempuri.org/getInfo";
-    private static final String SOAP_ACTION = NAME_SPACE+METHOD_NAME;
+    private static final String METHOD_NAME = "GetUser";
+    private static final String SOAP_ACTION = "http://localhost/GetUser";
+
     public static final String MyPREFERENCES = "MyPrefs";
     public static final String Username = "usernameKey";
     public static final String Password = "passKey";
@@ -45,7 +41,7 @@ public class LoginActivity extends Activity {
     public static final String Phone = "phoneKey";
 
     SharedPreferences sharedpreferences;
-    String username, password, email, name, address, phoneNumber;
+    String username, password, email, name, address, phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +52,7 @@ public class LoginActivity extends Activity {
                 new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        URL = getResources().getString(R.string.URL);
         edtUser = findViewById(R.id.edtUserS);
         edtPass = findViewById(R.id.edtPassS);
         txtError = findViewById(R.id.txtError);
@@ -97,7 +94,7 @@ public class LoginActivity extends Activity {
         });
     }
 
-    private class Webservice extends AsyncTask<String, Void, User> {
+    private class Webservice extends AsyncTask<String, Void, Void> {
         private ProgressDialog dialog = new ProgressDialog(LoginActivity.this);
 
         @Override
@@ -107,7 +104,7 @@ public class LoginActivity extends Activity {
         }
 
         @Override
-        protected User doInBackground(String... strings) {
+        protected Void doInBackground(String... strings) {
             try {
                 SoapObject request = new SoapObject(NAME_SPACE, METHOD_NAME);
                 request.addProperty("user", edtUser.getText().toString());
@@ -123,19 +120,17 @@ public class LoginActivity extends Activity {
 
                 response = (SoapObject) envelope.getResponse();
             }catch (Exception e) {
-                Log.i("TAG", "doInBackground login: "+e.toString());
                 e.printStackTrace();
             }
             return null;
         }
 
         @Override
-        protected void onPostExecute(User v) {
+        protected void onPostExecute(Void v) {
             if(dialog.isShowing()) {
                 dialog.dismiss();
             }
             if(response != null) {
-
                 for(int i = 0; i < response.getPropertyCount(); i++){
                     SoapObject object = (SoapObject) response.getProperty(i);
                     username = object.getProperty("username").toString();
@@ -143,16 +138,15 @@ public class LoginActivity extends Activity {
                     email = object.getProperty("email").toString();
                     name = object.getProperty("name").toString();
                     address = object.getProperty("address").toString();
-                    phoneNumber = object.getProperty("phoneNumber").toString();
+                    phone = object.getProperty("phoneNumber").toString();
                 }
-
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putString(Username, username);
                 editor.putString(Password, password);
                 editor.putString(Email, email);
                 editor.putString(Name, name);
                 editor.putString(Address, address);
-                editor.putString(Phone, phoneNumber);
+                editor.putString(Phone, phone);
                 editor.commit();
 
                 Intent myIntent = new Intent(LoginActivity.this, LogoutActivity.class);
