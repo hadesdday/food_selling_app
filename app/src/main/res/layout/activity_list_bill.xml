@@ -6,6 +6,44 @@
     android:layout_height="match_parent"
     tools:context=".ListBill">
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnFinishedBill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
+        android:layout_weight="0.33"
+        android:background="#FEB139"
+        android:text="Đơn hàng đã giao"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toStartOf="@+id/btnCancledBill"
+        app:layout_constraintStart_toEndOf="@+id/btnOrderedBill"
+        tools:layout_editor_absoluteY="56dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnOrderedBill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_weight="0.33"
+        android:background="#FEB139"
+        android:text="Đơn hàng đã đặt"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="56dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnCancledBill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_weight="0.33"
+        android:background="#FEB139"
+        android:text="Đơn hàng đã hủy"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="56dp" />
+
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="0dp"
@@ -40,57 +78,17 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="0dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="1dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnOrderedBill"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.33"
-            android:background="#FEB139"
-            android:text="Đơn hàng đã đặt"
-            android:textColor="#FFFFFF" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnFinishedBill"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.33"
-            android:background="#FEB139"
-            android:text="Đơn hàng đã giao"
-            android:textColor="#FFFFFF" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnCancledBill"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.33"
-            android:background="#FEB139"
-            android:text="Đơn hàng đã hủy"
-            android:textColor="#FFFFFF" />
-    </LinearLayout>
-
     <ListView
         android:id="@+id/billListView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="1dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+        app:layout_constraintTop_toBottomOf="@+id/btnFinishedBill" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

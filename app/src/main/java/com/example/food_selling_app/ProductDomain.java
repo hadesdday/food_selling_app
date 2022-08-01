@@ -82,5 +82,8 @@ public class ProductDomain implements Serializable {
     public void setNumberInCart(int numberInCart) {
         this.numberInCart = numberInCart;
     }
+    public double getTotal(){
+        return this.foodPrice*this.numberInCart;
+    }
 }
 

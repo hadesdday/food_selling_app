@@ -4,10 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class CartListActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
@@ -15,17 +24,35 @@ public class CartListActivity extends AppCompatActivity {
     private ManagementCart managementCart;
     TextView totalTxt, emptyTxt;
     private ScrollView scrollView;
-
+    Button checkout;
+    public static final String MyPREFERENCES = "CartPrefs";
+    public static final String FOODLIST = "foodListKey";
+    public static final String TOTALLIST = "totalListKey";
+    SharedPreferences sharedpreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart_list);
-
+        checkout =(Button) findViewById(R.id.btnCheckoutCart);
         managementCart = new ManagementCart(this);
-
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         initView();
         initList();
         CalculateCart();
+        checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                Gson gson = new Gson();
+                String json = gson.toJson(managementCart.getListCart());
+                editor.putString(FOODLIST, json);
+                float total = Math.round((managementCart.getTotalFee()) * 100) / 100;
+                editor.putFloat(TOTALLIST,total);
+                editor.commit();
+                Intent intent = new Intent(CartListActivity.this, Checkout.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initList() {

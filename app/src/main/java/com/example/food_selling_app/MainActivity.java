@@ -81,11 +81,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        Button foodidbtn=(Button) findViewById(R.id.foodidbtn);
+        Button foodidbtn=(Button) findViewById(R.id.productcart);
         foodidbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, FoodByFoodIdActivity.class);
+                Intent intent = new Intent(MainActivity.this, ListProductCart.class);
                 startActivity(intent);
             }
         });

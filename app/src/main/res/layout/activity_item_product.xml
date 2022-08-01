@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/texttensp"
-        android:layout_width="272dp"
+        android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginStart="1dp"
         android:gravity="center_vertical"
@@ -21,6 +21,7 @@
         android:id="@+id/textngaydathang"
         android:layout_width="133dp"
         android:layout_height="34dp"
+        android:layout_marginStart="10dp"
         android:gravity="center"
         android:text="ngày đặt hàng"
         app:layout_constraintEnd_toStartOf="@+id/textsoluongsp"
@@ -29,7 +30,7 @@
 
     <TextView
         android:id="@+id/textgiasp"
-        android:layout_width="121dp"
+        android:layout_width="0dp"
         android:layout_height="33dp"
         android:gravity="center"
         android:text="giá tiền"
@@ -41,6 +42,7 @@
         android:id="@+id/imageView"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:layout_marginStart="10dp"
         android:layout_marginEnd="1dp"
         app:layout_constraintEnd_toStartOf="@+id/texttensp"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,8 +61,10 @@
 
     <Button
         android:id="@+id/btnCancel_itemProduct"
-        android:layout_width="78dp"
+        android:layout_width="85dp"
         android:layout_height="47dp"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="#FEB139"
         android:text="Hủy"
         android:textSize="10dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,8 +73,10 @@
 
     <Button
         android:id="@+id/btnChange"
-        android:layout_width="77dp"
+        android:layout_width="85dp"
         android:layout_height="47dp"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="#FEB139"
         android:text="Thay đổi"
         android:textSize="10dp"
         app:layout_constraintEnd_toEndOf="parent"
