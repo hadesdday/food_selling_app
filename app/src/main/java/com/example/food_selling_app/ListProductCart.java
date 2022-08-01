@@ -41,9 +41,9 @@ public class ListProductCart extends AppCompatActivity {
         recyclerViewProductList.setLayoutManager(linearLayoutManager);
 
         ArrayList<ProductDomain> productList = new ArrayList<>();
-        productList.add(new ProductDomain("pizza", "pizza1", "Một trong những điều giúp Tyler1 trở nên nổi tiếng đó là nhờ vào tính cách thẳng thắn", 10000));
-        productList.add(new ProductDomain("Burger", "burger", "Và trong buổi lên sóng gần đây, Tyler1 đã bày tỏ sự thất vọng vô cùng lớn đối với Riot khi họ tung ra phiên bản 12.14", 12000));
-        productList.add(new ProductDomain("pizza2", "pizza", "Tyler1 thậm chí còn khẳng định rằng mình sẽ bay tới tận trụ sở của Riot để mở tiệc ăn mừng vào cái ngày đội cân bằng LMHT bị sa thải.", 11000));
+        productList.add(new ProductDomain(1,"pizza", "pizza1", "Một trong những điều giúp Tyler1 trở nên nổi tiếng đó là nhờ vào tính cách thẳng thắn", 10000,1));
+        productList.add(new ProductDomain(2,"Burger", "burger", "Và trong buổi lên sóng gần đây, Tyler1 đã bày tỏ sự thất vọng vô cùng lớn đối với Riot khi họ tung ra phiên bản 12.14", 12000,1));
+        productList.add(new ProductDomain(3,"pizza2", "pizza", "Tyler1 thậm chí còn khẳng định rằng mình sẽ bay tới tận trụ sở của Riot để mở tiệc ăn mừng vào cái ngày đội cân bằng LMHT bị sa thải.", 11000,1));
 
         adapter2 = new ProductAdapterCart(productList);
         recyclerViewProductList.setAdapter(adapter2);

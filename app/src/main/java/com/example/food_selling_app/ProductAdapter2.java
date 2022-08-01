@@ -23,14 +23,14 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-public class ProductAdapter2 extends ArrayAdapter<Product> {
+public class ProductAdapter2 extends ArrayAdapter<ProductDomain> {
     Activity context = null;
-    ArrayList<Product> itemList = null;
+    ArrayList<ProductDomain> itemList = null;
     int layoutID;
     String URL;
     int currentPos = 0;
 
-    public ProductAdapter2(@NonNull Activity context, int layoutID, @NonNull ArrayList<Product> itemList) {
+    public ProductAdapter2(@NonNull Activity context, int layoutID, @NonNull ArrayList<ProductDomain> itemList) {
         super(context, layoutID, itemList);
         this.layoutID = layoutID;
         this.context = context;
@@ -53,12 +53,12 @@ public class ProductAdapter2 extends ArrayAdapter<Product> {
             final TextView txtgiasp = (TextView) convertView.findViewById(R.id.textgiasp);
             final TextView txtsoluong = (TextView) convertView.findViewById(R.id.textsoluongsp);
 
-            final Product p = itemList.get(position);
+            final ProductDomain p = itemList.get(position);
             Log.i("TAG", "toStirng: " + p.toString());
-            txttensp.setText(p.getFoodname() + "");
-            txtngaydathang.setText(p.getDateOrdered() + "");
-            txtgiasp.setText(p.getTongGia() + "");
-            txtsoluong.setText(p.getAmount() + "");
+            txttensp.setText(p.getFoodName() + "");
+//            txtngaydathang.setText(p.getDateOrdered() + "");
+            txtgiasp.setText(p.getTotal() + "");
+            txtsoluong.setText(p.getNumberInCart() + "");
 
         }
         Button b = (Button) convertView.findViewById(R.id.btnCancel_itemProduct);
@@ -132,8 +132,8 @@ public class ProductAdapter2 extends ArrayAdapter<Product> {
                 int quantity = Integer.parseInt(txtChangeQuantity.getText().toString());
                 Log.i("TAG", "onClick: quantity " + quantity);
 
-                Product p = itemList.get(currentPos);
-                p.setAmount(quantity);
+                ProductDomain p = itemList.get(currentPos);
+                p.setNumberInCart(quantity);
                 ProductAdapter2.this.notifyDataSetChanged();
                 popupWindow.dismiss();
 

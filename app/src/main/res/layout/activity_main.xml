@@ -95,12 +95,12 @@
         app:layout_constraintTop_toBottomOf="@+id/cartbtn" />
 
     <Button
-        android:id="@+id/foodidbtn"
+        android:id="@+id/productcart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="23dp"
         android:layout_marginTop="13dp"
-        android:text="foodid"
+        android:text="productcart"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addcartbtn" />
 </androidx.constraintlayout.widget.ConstraintLayout>
