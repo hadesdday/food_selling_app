@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
@@ -25,11 +26,15 @@ public class FoodByFoodIdActivity extends AppCompatActivity {
     int foodNumber, price;
     String name, image, description;
 
+    private ManagementCart managementCart;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_food_id);
         doFoodByFoodId();
+
+        managementCart = new ManagementCart(this);
     }
 
     private void doFoodByFoodId() {
@@ -43,6 +48,7 @@ public class FoodByFoodIdActivity extends AppCompatActivity {
         number = findViewById(R.id.number);
         DecimalFormat format = new DecimalFormat("###,###,###");
 
+
         image = food.getFoodImage();
         name = food.getFoodName();
         price = food.getFoodPrice();
@@ -55,6 +61,13 @@ public class FoodByFoodIdActivity extends AppCompatActivity {
                 .error(R.drawable.ic_baseline_error_24)
                 .placeholder(R.drawable.ic_baseline_image_24)
                 .into(foodImage);
+
+//        int drawableResourceId = this.getResources().getIdentifier(food.getFoodImage(), "drawable", this.getPackageName());
+//        Glide.with(this).load(drawableResourceId).into(foodImage);
+//
+//        foodName.setText(food.getFoodName());
+//        foodPrice.setText(food.getFoodPrice() + "đ");
+//        foodDescription.setText(food.getFoodDescription());
 
         String[] array = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, array);
@@ -71,8 +84,12 @@ public class FoodByFoodIdActivity extends AppCompatActivity {
             }
         });
 
-        addcart.setOnClickListener(view -> {
-
+        addcart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                food.setNumber(foodNumber);
+                managementCart.insertProduct(food);
+            }
         });
 
         ratefood.setOnClickListener(view -> {

@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         addcart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ShowDetailActivity.class);
+                Intent intent = new Intent(MainActivity.this, FoodByFoodIdActivity.class);
                 startActivity(intent);
             }
         });
