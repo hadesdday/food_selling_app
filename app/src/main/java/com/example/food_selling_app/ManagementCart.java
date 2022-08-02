@@ -15,8 +15,8 @@ public class ManagementCart {
     }
 
     //thêm sản phẩm vào giỏ
-    public void insertProduct(ProductDomain item) {
-        ArrayList<ProductDomain> listProduct = getListCart();
+    public void insertProduct(Food item) {
+        ArrayList<Food> listProduct = getListCart();
         boolean exist = false;
         int n = 0;
         for(int i = 0; i < listProduct.size(); i++) {
@@ -28,7 +28,7 @@ public class ManagementCart {
         }
 
         if(exist) {
-            listProduct.get(n).setNumberInCart(item.getNumberInCart());
+            listProduct.get(n).setNumber(item.getNumber());
         }else {
             listProduct.add(item);
         }
@@ -36,23 +36,23 @@ public class ManagementCart {
         Toast.makeText(context, "Added to your cart", Toast.LENGTH_SHORT).show();
     }
 
-    public ArrayList<ProductDomain> getListCart() {
+    public ArrayList<Food> getListCart() {
         return mobileDB.getListObject("CartList");
     }
 
     // +sp
-    public void plusNumberFood(ArrayList<ProductDomain> listFood, int position, ChangeNumberItemsListener changeNumberItemsListener) {
-        listFood.get(position).setNumberInCart(listFood.get(position).getNumberInCart() + 1);
+    public void plusNumberFood(ArrayList<Food> listFood, int position, ChangeNumberItemsListener changeNumberItemsListener) {
+        listFood.get(position).setNumber(listFood.get(position).getNumber() + 1);
         mobileDB.putListObject("CartList", listFood);
         changeNumberItemsListener.changed();
     }
 
     // -sp
-    public void minusNumberFood(ArrayList<ProductDomain> listFood, int position, ChangeNumberItemsListener changeNumberItemsListener) {
-        if(listFood.get(position).getNumberInCart() == 1) {
+    public void minusNumberFood(ArrayList<Food> listFood, int position, ChangeNumberItemsListener changeNumberItemsListener) {
+        if(listFood.get(position).getNumber() == 1) {
             listFood.remove(position);
         }else {
-            listFood.get(position).setNumberInCart(listFood.get(position).getNumberInCart() - 1);
+            listFood.get(position).setNumber(listFood.get(position).getNumber() - 1);
         }
         mobileDB.putListObject("CartList", listFood);
         changeNumberItemsListener.changed();
@@ -60,10 +60,10 @@ public class ManagementCart {
 
     //tổng tiền
     public Double getTotalFee() {
-        ArrayList<ProductDomain> listFood = getListCart();
+        ArrayList<Food> listFood = getListCart();
         double fee = 0;
         for(int i = 0; i < listFood.size(); i++) {
-            fee = fee + (listFood.get(i).getFoodPrice() * listFood.get(i).getNumberInCart());
+            fee = fee + (listFood.get(i).getFoodPrice() * listFood.get(i).getNumber());
         }
         return fee;
     }

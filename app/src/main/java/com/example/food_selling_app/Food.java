@@ -9,6 +9,7 @@ public class Food implements Serializable {
     String FoodDescription;
     int FoodPrice;
     int FoodTypeId;
+    private int number;
 
     public Food(int foodId, String foodName, String foodImage, String foodDescription, int foodPrice, int foodTypeId) {
         FoodId = foodId;
@@ -17,6 +18,24 @@ public class Food implements Serializable {
         FoodDescription = foodDescription;
         FoodPrice = foodPrice;
         FoodTypeId = foodTypeId;
+    }
+
+    public Food(int foodId, String foodName, String foodImage, String foodDescription, int foodPrice, int foodTypeId, int number) {
+        FoodId = foodId;
+        FoodName = foodName;
+        FoodImage = foodImage;
+        FoodDescription = foodDescription;
+        FoodPrice = foodPrice;
+        FoodTypeId = foodTypeId;
+        this.number = number;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     public int getFoodId() {
@@ -65,5 +84,8 @@ public class Food implements Serializable {
 
     public void setFoodTypeId(int foodTypeId) {
         FoodTypeId = foodTypeId;
+    }
+    public double getTotal(){
+        return this.FoodPrice*this.number;
     }
 }
