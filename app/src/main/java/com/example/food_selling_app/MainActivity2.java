@@ -28,9 +28,10 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class MainActivity2 extends AppCompatActivity {
-    private final String NAMESPACE = getResources().getString(R.string.NAMESPACE1);
-    private final String URL = getResources().getString(R.string.URL1);
-
+    //    private final String NAMESPACE = getResources().getString(R.string.NAMESPACE1);
+//    private final String URL = getResources().getString(R.string.URL);
+    String NAMESPACE;
+    String URL;
     Spinner foodTypeList;
     ArrayList<FoodType> foodTypeArrayList;
     ArrayList<Food> foodArrayList;
@@ -40,6 +41,8 @@ public class MainActivity2 extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        NAMESPACE = getResources().getString(R.string.NAMESPACE);
+        URL = getResources().getString(R.string.URL);
         setContentView(R.layout.activity_main2);
         new doFoodTypeList().execute();
         new doFoodList().execute();
@@ -242,7 +245,8 @@ public class MainActivity2 extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {}
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
         });
     }
 }

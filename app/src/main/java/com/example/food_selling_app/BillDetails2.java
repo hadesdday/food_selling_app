@@ -24,7 +24,7 @@ import org.ksoap2.transport.HttpTransportSE;
 import java.util.ArrayList;
 
 public class BillDetails2 extends AppCompatActivity {
-    ArrayList<Product> products = new ArrayList<>();
+    ArrayList<ProductDomain> products = new ArrayList<>();
     ArrayList<Product> productsClone = new ArrayList<>();
     ListView listItems;
     ProductAdapter3 productAdapter = null;
@@ -90,8 +90,9 @@ public class BillDetails2 extends AppCompatActivity {
                 String nameProduct = soapItem.getProperty("nameProduct").toString();
                 double priceProduct = Double.parseDouble(soapItem.getProperty("priceProduct").toString());
                 int amount = Integer.parseInt(soapItem.getProperty("amount").toString());
-                products.add(new Product(idProduct, nameProduct, priceProduct, amount));
-                productsClone.add(new Product(idProduct, nameProduct, priceProduct, amount));
+                ProductDomain p = new ProductDomain(idProduct, nameProduct, "", "", (int) priceProduct, 0);
+                p.setNumberInCart(amount);
+                products.add(p);
             }
             productAdapter.notifyDataSetChanged();
         } catch (Exception e) {
@@ -102,6 +103,7 @@ public class BillDetails2 extends AppCompatActivity {
     private class GetBillDetailWebservice extends AsyncTask<String, Void, Void> {
         private ProgressDialog dialog = new ProgressDialog(BillDetails2.this);
         boolean result = false;
+
         public void doGetList(int idBill) {
             try {
                 Log.i("TAG", "doGetList: run1");
@@ -132,14 +134,16 @@ public class BillDetails2 extends AppCompatActivity {
                     String nameProduct = soapItem.getProperty("nameProduct").toString();
                     double priceProduct = Double.parseDouble(soapItem.getProperty("priceProduct").toString());
                     int amount = Integer.parseInt(soapItem.getProperty("amount").toString());
-                    products.add(new Product(idProduct, nameProduct, priceProduct, amount));
-                    productsClone.add(new Product(idProduct, nameProduct, priceProduct, amount));
+                    ProductDomain p = new ProductDomain(idProduct, nameProduct, "", "", (int) priceProduct, 0);
+                    p.setNumberInCart(amount);
+                    products.add(p);
                 }
                 productAdapter.notifyDataSetChanged();
             } catch (Exception e) {
                 Log.i("TAG", "doGetListItems: " + e.toString());
             }
         }
+
         @Override
         protected void onPreExecute() {
             dialog.setMessage("Connecting...");

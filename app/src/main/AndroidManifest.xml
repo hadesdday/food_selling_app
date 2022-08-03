@@ -14,10 +14,16 @@
         android:theme="@style/Theme.Food_selling_app"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".MainActivity"
+            android:name=".OtherFunction"
+            android:exported="false" />
+        <activity
+            android:name=".ListProductCart"
             android:exported="false" />
         <activity
             android:name=".FoodSearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ShowDetailActivity"
             android:exported="false" />
         <activity
             android:name=".CartListActivity"
@@ -70,6 +76,9 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity2"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
