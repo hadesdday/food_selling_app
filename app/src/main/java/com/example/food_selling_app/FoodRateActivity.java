@@ -24,8 +24,8 @@ import org.ksoap2.transport.HttpTransportSE;
 import java.util.ArrayList;
 
 public class FoodRateActivity extends AppCompatActivity {
-    private final String NAMESPACE = "http://192.168.0.177:44321/";
-    private final String URL = "http://192.168.0.177/TheWebService/webservice.asmx?WSDL";
+    private final String NAMESPACE = getResources().getString(R.string.NAMESPACE);
+    private final String URL = getResources().getString(R.string.URL);
 
     RatingBar rate;
     EditText comment;
@@ -138,10 +138,10 @@ public class FoodRateActivity extends AppCompatActivity {
 
                 for (int i = 0; i < foodRateSize; i++) {
                     SoapObject item = (SoapObject) soapObjectResponse.getProperty(i);
-                    int rateId = Integer.parseInt(item.getProperty("RateId").toString());
-                    int foodId = Integer.parseInt(item.getProperty("FoodId").toString());
-                    float foodRate = Float.parseFloat(item.getProperty("FoodRate").toString());
-                    String foodComment = item.getProperty("FoodComment").toString();
+                    int rateId = Integer.parseInt(item.getProperty("id").toString());
+                    int foodId = Integer.parseInt(item.getProperty("food_id").toString());
+                    float foodRate = Float.parseFloat(item.getProperty("rate").toString());
+                    String foodComment = item.getProperty("comment").toString();
                     foodRatingArrayList.add(new FoodRating(rateId, foodId, foodRate, foodComment));
                 }
             } catch (Exception e) {

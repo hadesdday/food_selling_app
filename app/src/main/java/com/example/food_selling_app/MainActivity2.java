@@ -32,6 +32,7 @@ public class MainActivity2 extends AppCompatActivity {
 //    private final String URL = getResources().getString(R.string.URL);
     String NAMESPACE;
     String URL;
+    SearchView searchView;
     Spinner foodTypeList;
     ArrayList<FoodType> foodTypeArrayList;
     ArrayList<Food> foodArrayList;
@@ -44,16 +45,13 @@ public class MainActivity2 extends AppCompatActivity {
         NAMESPACE = getResources().getString(R.string.NAMESPACE);
         URL = getResources().getString(R.string.URL);
         setContentView(R.layout.activity_main2);
+        searchFunc();
         new doFoodTypeList().execute();
         new doFoodList().execute();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
-        getMenuInflater().inflate(R.menu.bottom_nav_menu, menu);
-        MenuItem search = menu.findItem(R.id.search);
-        MenuItem cart = menu.findItem(R.id.cart);
-        SearchView searchView = (SearchView) search.getActionView();
+    private void searchFunc() {
+        searchView = findViewById(R.id.search);
         searchView.setQueryHint("Tìm kiếm món ăn");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -69,14 +67,6 @@ public class MainActivity2 extends AppCompatActivity {
                 return false;
             }
         });
-
-        cart.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                return false;
-            }
-        });
-        return true;
     }
 
     class doFoodTypeList extends AsyncTask<Void, Void, Void> {
@@ -105,8 +95,8 @@ public class MainActivity2 extends AppCompatActivity {
 
                 for (int i = 0; i < foodTypeSize; i++) {
                     SoapObject item = (SoapObject) soapObjectResponse.getProperty(i);
-                    int foodTypeId = Integer.parseInt(item.getProperty("FoodTypeId").toString());
-                    String foodTypeName = item.getProperty("FoodTypeName").toString();
+                    int foodTypeId = Integer.parseInt(item.getProperty("id").toString());
+                    String foodTypeName = item.getProperty("name").toString();
                     foodTypeArrayList.add(new FoodType(foodTypeId, foodTypeName));
                 }
             } catch (Exception e) {
@@ -162,12 +152,12 @@ public class MainActivity2 extends AppCompatActivity {
 
                 for (int i = 0; i < foodSize; i++) {
                     SoapObject item = (SoapObject) soapObjectResponse.getProperty(i);
-                    int foodId = Integer.parseInt(item.getProperty("FoodId").toString());
-                    String foodName = item.getProperty("FoodName").toString();
-                    String foodImage = item.getProperty("FoodImage").toString();
-                    String foodDescription = item.getProperty("FoodDescription").toString();
-                    int foodPrice = Integer.parseInt(item.getProperty("FoodPrice").toString());
-                    int foodTypeId = Integer.parseInt(item.getProperty("FoodTypeId").toString());
+                    int foodId = Integer.parseInt(item.getProperty("id").toString());
+                    int foodTypeId = Integer.parseInt(item.getProperty("food_type").toString());
+                    String foodName = item.getProperty("name").toString();
+                    String foodImage = item.getProperty("image_url").toString();
+                    String foodDescription = item.getProperty("description").toString();
+                    int foodPrice = Integer.parseInt(item.getProperty("price").toString());
                     foodArrayList.add(new Food(foodId, foodName, foodImage, foodDescription, foodPrice, foodTypeId));
                 }
             } catch (Exception e) {

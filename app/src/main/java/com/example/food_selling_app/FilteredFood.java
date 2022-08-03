@@ -22,8 +22,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class FilteredFood extends AppCompatActivity {
-    private final String NAMESPACE = "http://192.168.0.177:44321/";
-    private final String URL = "http://192.168.0.177/TheWebService/webservice.asmx?WSDL";
+    private final String NAMESPACE = getResources().getString(R.string.NAMESPACE);
+    private final String URL = getResources().getString(R.string.URL);
 
     FoodType foodType;
     TextView text;
@@ -75,12 +75,12 @@ public class FilteredFood extends AppCompatActivity {
 
                 for (int i = 0; i < foodSize; i++) {
                     SoapObject item = (SoapObject) soapObjectResponse.getProperty(i);
-                    int foodId = Integer.parseInt(item.getProperty("FoodId").toString());
-                    String foodName = item.getProperty("FoodName").toString();
-                    String foodImage = item.getProperty("FoodImage").toString();
-                    String foodDescription = item.getProperty("FoodDescription").toString();
-                    int foodPrice = Integer.parseInt(item.getProperty("FoodPrice").toString());
-                    int foodTypeId = Integer.parseInt(item.getProperty("FoodTypeId").toString());
+                    int foodId = Integer.parseInt(item.getProperty("id").toString());
+                    int foodTypeId = Integer.parseInt(item.getProperty("food_type").toString());
+                    String foodName = item.getProperty("name").toString();
+                    String foodImage = item.getProperty("image_url").toString();
+                    String foodDescription = item.getProperty("description").toString();
+                    int foodPrice = Integer.parseInt(item.getProperty("price").toString());
                     foodArrayListFiltered.add(new com.example.food_selling_app.Food(foodId, foodName, foodImage, foodDescription, foodPrice, foodTypeId));
                 }
             } catch (Exception e) {

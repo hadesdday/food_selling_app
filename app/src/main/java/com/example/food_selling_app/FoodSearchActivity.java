@@ -43,8 +43,8 @@ public class FoodSearchActivity extends AppCompatActivity {
 
     class doFoodListFiltered extends AsyncTask<Void, Void, Void> {
         boolean exc = false;
-        private final String NAMESPACE = getResources().getString(R.string.NAMESPACE1);
-        private final String URL = getResources().getString(R.string.URL1);
+        private final String NAMESPACE = getResources().getString(R.string.NAMESPACE);
+        private final String URL = getResources().getString(R.string.URL);
         private final ProgressDialog dialog = new ProgressDialog(FoodSearchActivity.this);
         private final String METHOD = "getSearchedFood";
         private final String SOAP_ACTION = NAMESPACE + METHOD;
@@ -69,12 +69,12 @@ public class FoodSearchActivity extends AppCompatActivity {
 
                 for (int i = 0; i < foodSize; i++) {
                     SoapObject item = (SoapObject) soapObjectResponse.getProperty(i);
-                    int foodId = Integer.parseInt(item.getProperty("FoodId").toString());
-                    String foodName = item.getProperty("FoodName").toString();
-                    String foodImage = item.getProperty("FoodImage").toString();
-                    String foodDescription = item.getProperty("FoodDescription").toString();
-                    int foodPrice = Integer.parseInt(item.getProperty("FoodPrice").toString());
-                    int foodTypeId = Integer.parseInt(item.getProperty("FoodTypeId").toString());
+                    int foodId = Integer.parseInt(item.getProperty("id").toString());
+                    int foodTypeId = Integer.parseInt(item.getProperty("food_type").toString());
+                    String foodName = item.getProperty("name").toString();
+                    String foodImage = item.getProperty("image_url").toString();
+                    String foodDescription = item.getProperty("description").toString();
+                    int foodPrice = Integer.parseInt(item.getProperty("price").toString());
                     foodArrayListFiltered.add(new Food(foodId, foodName, foodImage, foodDescription, foodPrice, foodTypeId));
                 }
             } catch (Exception e) {
