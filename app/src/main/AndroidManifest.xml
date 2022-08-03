@@ -14,6 +14,9 @@
         android:theme="@style/Theme.Food_selling_app"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".OtherFunction"
+            android:exported="false" />
+        <activity
             android:name=".ListProductCart"
             android:exported="false" />
         <activity
@@ -70,6 +73,9 @@
             android:exported="false" />
         <activity
             android:name=".ChangeBillInfor"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity2"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

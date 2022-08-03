@@ -23,11 +23,11 @@ import org.ksoap2.transport.HttpTransportSE;
 import java.util.ArrayList;
 
 public class BillDetails3 extends AppCompatActivity {
-    ArrayList<Product> products = new ArrayList<>();
+    ArrayList<ProductDomain> products = new ArrayList<>();
     ArrayList<Product> productsClone = new ArrayList<>();
     ListView listItems;
     ProductAdapter3 productAdapter = null;
-    TextView sdt, mahd, address;
+    TextView sdt, mahd, address,price;
     Button backbtn;
     Bundle bundle;
 
@@ -40,6 +40,7 @@ public class BillDetails3 extends AppCompatActivity {
         sdt = (TextView) findViewById(R.id.textPhone_details3);
         mahd = (TextView) findViewById(R.id.textMahd_details3);
         address = (TextView) findViewById(R.id.textAddress_details3);
+        price= (TextView) findViewById(R.id.textPrice_details);
         listItems = (ListView) findViewById(R.id.listItems3);
         backbtn=(Button) findViewById(R.id.btnBackCheckout3);
         bundle = getIntent().getExtras();
@@ -91,8 +92,9 @@ public class BillDetails3 extends AppCompatActivity {
                 String nameProduct=soapItem.getProperty("nameProduct").toString();
                 double priceProduct= Double.parseDouble(soapItem.getProperty("priceProduct").toString());
                 int amount=Integer.parseInt(soapItem.getProperty("amount").toString());
-                products.add(new Product(idProduct,nameProduct,priceProduct,amount));
-                productsClone.add(new Product(idProduct,nameProduct,priceProduct,amount));
+                ProductDomain p = new ProductDomain(idProduct, nameProduct, "", "", (int) priceProduct, 0);
+                p.setNumberInCart(amount);
+                products.add(p);
             }
             productAdapter.notifyDataSetChanged();
         }catch (Exception e){
@@ -140,11 +142,12 @@ public class BillDetails3 extends AppCompatActivity {
                     double priceProduct= Double.parseDouble(soapItem.getProperty("priceProduct").toString());
                     priceBill+=priceProduct;
                     int amount=Integer.parseInt(soapItem.getProperty("amount").toString());
-                    products.add(new Product(idProduct,nameProduct,priceProduct,amount));
-                    productsClone.add(new Product(idProduct,nameProduct,priceProduct,amount));
+                    ProductDomain p = new ProductDomain(idProduct, nameProduct, "", "", (int) priceProduct, 0);
+                    p.setNumberInCart(amount);
+                    products.add(p);
 
                 }
-//                price.setText(priceBill+"");
+                price.setText(bundle.getDouble("price")+"");
                 productAdapter.notifyDataSetChanged();
             }catch (Exception e){
                 Log.i("TAG", "doGetListItems: "+e.toString());

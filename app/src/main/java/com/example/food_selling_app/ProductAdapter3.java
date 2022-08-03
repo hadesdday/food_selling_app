@@ -5,6 +5,9 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -23,14 +27,14 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-public class ProductAdapter3 extends ArrayAdapter<Product> {
+public class ProductAdapter3 extends ArrayAdapter<ProductDomain> {
     Activity context = null;
-    ArrayList<Product> itemList = null;
+    ArrayList<ProductDomain> itemList = null;
     int layoutID;
     String URL;
     int currentPos = 0;
 
-    public ProductAdapter3(@NonNull Activity context, int layoutID, @NonNull ArrayList<Product> itemList) {
+    public ProductAdapter3(@NonNull Activity context, int layoutID, @NonNull ArrayList<ProductDomain> itemList) {
         super(context, layoutID, itemList);
         this.layoutID = layoutID;
         this.context = context;
@@ -52,13 +56,16 @@ public class ProductAdapter3 extends ArrayAdapter<Product> {
             final TextView txtngaydathang = (TextView) convertView.findViewById(R.id.textngaydathang2);
             final TextView txtgiasp = (TextView) convertView.findViewById(R.id.textgiasp2);
             final TextView txtsoluong = (TextView) convertView.findViewById(R.id.textsoluongsp2);
-
-            final Product p = itemList.get(position);
+            final ImageView img=(ImageView) convertView.findViewById(R.id.imageView);
+            int drawableResourceId = convertView.getResources().getIdentifier("@drawable/pizza1", null, MainActivity.PACKAGE_NAME);
+            Drawable res = convertView.getResources().getDrawable(drawableResourceId);
+            img.setImageDrawable(res);
+            final ProductDomain p = itemList.get(position);
             Log.i("TAG", "toStirng: " + p.toString());
-            txttensp.setText(p.getFoodname() + "");
-            txtngaydathang.setText(p.getDateOrdered() + "");
-            txtgiasp.setText(p.getTongGia() + "");
-            txtsoluong.setText(p.getAmount() + "");
+            txttensp.setText(p.getFoodName()+ "");
+//            txtngaydathang.setText(p.getDateOrdered() + "");
+            txtgiasp.setText(p.getTotal() + "");
+            txtsoluong.setText(p.getNumberInCart() + "");
 
         }
         return convertView;

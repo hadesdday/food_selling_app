@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OtherFunction">
+    <LinearLayout
+        android:id="@+id/linearLayoutOther"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:orientation="horizontal"
+        android:weightSum="1.0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnBackOther"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:background="@color/main_color"
+            android:foreground="@drawable/ic_b"
+            android:textColor="#FFFFFF"
+            tools:ignore="TextContrastCheck,SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="354dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/main_color"
+            android:gravity="center_vertical"
+            android:text="Khác"
+            android:textColor="#FFFFFF" />
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/accountOther"
+        android:layout_width="406dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="141dp"
+        android:text="Tài khoản"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <Button
+        android:id="@+id/ContactOther"
+        android:layout_width="401dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="27dp"
+        android:text="Liên hệ"
+        app:layout_constraintTop_toBottomOf="@+id/accountOther"
+        tools:layout_editor_absoluteX="2dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

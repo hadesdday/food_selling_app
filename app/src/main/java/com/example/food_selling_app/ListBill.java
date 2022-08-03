@@ -2,7 +2,9 @@ package com.example.food_selling_app;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -11,6 +13,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.MarshalFloat;
@@ -29,12 +33,15 @@ public class ListBill extends Activity {
     Button btnOrderedBill, btnFinishedBill, btnCancledBill, btnback;
     String URL ;
     Intent intent;
+    BottomNavigationView bottomNavigation;
+    public static final String MyPREFERENCES = "MyPrefs";
     //    final String URL="https://localhost:44364/WebServiceProject.asmx";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_bill);
         URL = getResources().getString(R.string.URL);;
+        initBottomNav();
         btnOrderedBill = (Button) findViewById(R.id.btnOrderedBill);
 
         listViewBill = (ListView) findViewById(R.id.billListView);
@@ -122,18 +129,35 @@ public class ListBill extends Activity {
         });
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        Log.i("TAG", "onResume: ");
-//        if (this.reloadNeed) {
-//            bills = new ArrayList<>();
-//            billAdapter = new BillAdapter(this, R.layout.activity_item_bill, bills);
-//            listViewBill.setAdapter(billAdapter);
-//            doGetList(1, "clientt");
-//            Log.i("TAG", "onResume: reload");
-//        }
-//    }
+    public void initBottomNav(){
+        SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        bottomNavigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigation.setSelectedItemId(R.id.bill);
+        bottomNavigation.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.home:
+                    break;
+                case R.id.otherFunction:
+                    intent = new Intent(ListBill.this, OtherFunction.class);
+                    startActivity(intent);
+                    break;
+                case R.id.order:
+                    intent = new Intent(ListBill.this, MainActivity2.class);
+                    startActivity(intent);
+                    break;
+                case R.id.bill:
+                    if (sharedpreferences != null) {
+                        intent = new Intent(ListBill.this, ListBill.class);
+                        startActivity(intent);
+                    }else{
+                        Intent intent = new Intent(ListBill.this, BillDetails2.class);
+                        startActivity(intent);
+                    }
+                    break;
+            }
+            return true;
+        });
+    }
 
     public void doGetList(int status, String username) {
         try {
