@@ -16,12 +16,12 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
 public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHolder> {
-    private ArrayList<ProductDomain> productDomains;
+    private ArrayList<Food> productDomains;
     private ManagementCart managementCart;
     private ChangeNumberItemsListener changeNumberItemsListener;
     Context context;
 
-    public CartListAdapter(ArrayList<ProductDomain> productDomains, Context context, ChangeNumberItemsListener changeNumberItemsListener) {
+    public CartListAdapter(ArrayList<Food> productDomains, Context context, ChangeNumberItemsListener changeNumberItemsListener) {
         this.productDomains = productDomains;
         this.managementCart = new ManagementCart(context);
         this.changeNumberItemsListener = changeNumberItemsListener;
@@ -39,8 +39,8 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.title.setText(productDomains.get(position).getFoodName());
         holder.feeEachItem.setText(String.valueOf(productDomains.get(position).getFoodPrice()));
-        holder.totalEachItem.setText(String.valueOf(Math.round((productDomains.get(position).getNumberInCart() * productDomains.get(position).getFoodPrice()) * 100) / 100));
-        holder.num.setText(String.valueOf(productDomains.get(position).getNumberInCart()));
+        holder.totalEachItem.setText(String.valueOf(Math.round((productDomains.get(position).getNumber() * productDomains.get(position).getFoodPrice()) * 100) / 100));
+        holder.num.setText(String.valueOf(productDomains.get(position).getNumber()));
 
         int drawableResourceId = holder.itemView.getContext().getResources()
                 .getIdentifier(productDomains.get(position).getFoodImage(), "drawable", holder.itemView.getContext().getPackageName());

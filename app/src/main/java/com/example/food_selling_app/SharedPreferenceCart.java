@@ -25,14 +25,14 @@ public class SharedPreferenceCart {
         return new ArrayList<String>(Arrays.asList(TextUtils.split(preferences.getString(key, ""), "‚‗‚")));
     }
 
-    public ArrayList<ProductDomain> getListObject(String key){
+    public ArrayList<Food> getListObject(String key){
         Gson gson = new Gson();
 
         ArrayList<String> objStrings = getListString(key);
-        ArrayList<ProductDomain> playerList =  new ArrayList<ProductDomain>();
+        ArrayList<Food> playerList =  new ArrayList<Food>();
 
         for(String jObjString : objStrings){
-            ProductDomain player  = gson.fromJson(jObjString,  ProductDomain.class);
+            Food player  = gson.fromJson(jObjString,  Food.class);
             playerList.add(player);
         }
         return playerList;
@@ -46,10 +46,10 @@ public class SharedPreferenceCart {
     }
 
 
-    public void putListObject(String key, ArrayList<ProductDomain> playerList){
+    public void putListObject(String key, ArrayList<Food> playerList){
         Gson gson = new Gson();
         ArrayList<String> objStrings = new ArrayList<String>();
-        for(ProductDomain player: playerList){
+        for(Food player: playerList){
             objStrings.add(gson.toJson(player));
         }
         putListString(key, objStrings);
