@@ -29,7 +29,7 @@ public class BillDetails extends Activity {
     ArrayList<Product> productsClone = new ArrayList<>();
     ListView listItems;
     ProductAdapter productAdapter = null;
-    TextView sdt, mahd, address,price;
+    TextView sdt, mahd, address,price,rate;
     Button deletebtn,backbtn;
     Bundle bundle;
 
@@ -42,19 +42,35 @@ public class BillDetails extends Activity {
         sdt = (TextView) findViewById(R.id.textPhone_details);
         mahd = (TextView) findViewById(R.id.textMahd_details);
         address = (TextView) findViewById(R.id.textAddress_details);
+        rate=(TextView) findViewById(R.id.textRate_details);
         price= (TextView) findViewById(R.id.textPrice_details);
         listItems = (ListView) findViewById(R.id.listItems);
         deletebtn=(Button) findViewById(R.id.btnDelete_BillDetails);
         backbtn=(Button) findViewById(R.id.btnBackCheckout);
+
         bundle = getIntent().getExtras();
 //        ArrayList<Product> products = bundle.getParcelableArrayList("products");
 //        Log.i("TAG", "doGetListItems: "+products.size());
         mahd.setText(bundle.getInt("mahd")+"");
         sdt.setText(bundle.getString("sdt"));
         address.setText(bundle.getString("address"));
+        rate.setText(bundle.getDouble("rate")+"");
+        price.setText(bundle.getDouble("price")+"");
 //        doGetList(bundle.getInt("mahd"));
         new GetBillWebservice().execute();
-        productAdapter = new ProductAdapter(this, R.layout.activity_item_product, products);
+        productAdapter = new ProductAdapter(this, R.layout.activity_item_product, products, new UpdateBill() {
+            @Override
+            public void update() {
+                double sum=0;
+                for(Product p:products){
+                    sum+=p.getTongGia();
+                }
+                sum*=(1-Double.parseDouble(rate.getText().toString()));
+                updateBillPrice(Integer.parseInt(mahd.getText().toString()),sum);
+
+                price.setText(sum+"");
+            }
+        });
         listItems.setAdapter(productAdapter);
         deletebtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,11 +100,46 @@ public class BillDetails extends Activity {
         });
     }
 
-//    public void doDeleteBill(int billID){
-//    }
-//    public void doGetList(int idBill) {
-//    }
 
+    public boolean updateBillPrice(int billId,double price){
+        boolean result = false;
+        try {
+            Log.i("TAG", "doGetList: run1");
+            final String NAMESPACE = "http://localhost/";
+            final String METHOD_NAME = "updateBillPrice";
+            final String SOAP_ACTION = NAMESPACE + METHOD_NAME;
+            SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
+//            SoapObject newProduct  =new SoapObject(NAMESPACE,"Product");
+            request.addProperty("billId", billId);
+            request.addProperty("price", price);
+
+//            request.addSoapObject(newProduct);
+            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+            envelope.dotNet = true;
+            envelope.setOutputSoapObject(request);
+            Log.i("TAG", "doGetList: run2");
+            HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+            Log.i("TAG", "doGetList: run3");
+            androidHttpTransport.call(SOAP_ACTION, envelope);
+            SoapPrimitive soapPrimitive = (SoapPrimitive) envelope.getResponse();
+            Log.i("TAG", "doGetList: run4");
+            int ret = Integer.parseInt(soapPrimitive.toString());
+            String msg = "success";
+            if (ret <= 0) {
+                msg = "false";
+                result = false;
+            } else {
+                result = true;
+            }
+
+            Log.i("TAG", "doGetList: run5:" + msg);
+
+
+        } catch (Exception e) {
+            Log.i("TAG", "error: " + e.toString());
+        }
+        return result;
+    }
     private class DeleteBillWebservice extends AsyncTask<String, Void, Void> {
         private ProgressDialog dialog = new ProgressDialog(BillDetails.this);
         boolean result = false;
@@ -186,7 +237,7 @@ public class BillDetails extends Activity {
                     productsClone.add(new Product(idProduct,nameProduct,priceProduct,amount));
 
                 }
-                price.setText(bundle.getDouble("price")+"");
+
                 productAdapter.notifyDataSetChanged();
             }catch (Exception e){
                 Log.i("TAG", "doGetListItems: "+e.toString());

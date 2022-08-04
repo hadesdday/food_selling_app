@@ -33,15 +33,20 @@ public class ProductAdapter extends ArrayAdapter<Product> {
     Activity context = null;
     ArrayList<Product> itemList = null;
     int layoutID;
-    String URL ;
+    String URL;
     int currentPos = 0;
-
-    public ProductAdapter(@NonNull Activity context, int layoutID, @NonNull ArrayList<Product> itemList) {
+    UpdateBill updateBill;
+    TextView txtmahd;
+    TextView txtrate ;
+    public ProductAdapter(@NonNull Activity context, int layoutID, @NonNull ArrayList<Product> itemList, UpdateBill updateBill) {
         super(context, layoutID, itemList);
         this.layoutID = layoutID;
         this.context = context;
         this.itemList = itemList;
+        this.updateBill = updateBill;
         URL = context.getResources().getString(R.string.URL);
+        txtmahd = (TextView) context.findViewById(R.id.textMahd_details);
+        txtrate = (TextView) context.findViewById(R.id.textRate_details);
     }
 
     @NonNull
@@ -85,6 +90,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
                         doDeleteItem(Integer.parseInt(txtmahd.getText().toString()), itemList.get(pos).getFoodId());
                         itemList.remove(pos);
                         ProductAdapter.this.notifyDataSetChanged();
+                        ProductAdapter.this.updateBill.update();
                     }
                 });
                 builder.setNegativeButton("no", null);
@@ -98,7 +104,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
             @Override
             public void onClick(View view) {
                 int pos = (int) position;
-                currentPos=pos;
+                currentPos = pos;
                 Log.i("TAG", "mahd: " + txtmahd.getText().toString());
                 Log.i("TAG", "masp: " + itemList.get(pos).getFoodId());
                 onChangeAmountPopup(view, Integer.parseInt(txtmahd.getText().toString()), itemList.get(pos).getFoodId());
@@ -132,11 +138,15 @@ public class ProductAdapter extends ArrayAdapter<Product> {
             Log.i("TAG", "doGetList: run4");
             int ret = Integer.parseInt(soapPrimitive.toString());
             String msg = "success";
+
             if (ret <= 0)
                 msg = "false";
+            else{
+                ProductAdapter.this.notifyDataSetChanged();
+                this.updateBill.update();
+            }
 
             Log.i("TAG", "doGetList: run5:" + msg);
-
 
         } catch (Exception e) {
             Log.i("TAG", "error: " + e.toString());
@@ -175,9 +185,11 @@ public class ProductAdapter extends ArrayAdapter<Product> {
                 int quantity = Integer.parseInt(txtChangeQuantity.getText().toString());
                 Log.i("TAG", "onClick: quantity " + quantity);
                 if (doChangeQuantity(billId, foodId, quantity)) {
-                    Product p=itemList.get(currentPos);
+                    Product p = itemList.get(currentPos);
                     p.setAmount(quantity);
+
                     ProductAdapter.this.notifyDataSetChanged();
+                    ProductAdapter.this.updateBill.update();
                     popupWindow.dismiss();
                 }
 
@@ -186,6 +198,8 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         });
 
     }
+
+
 
     public boolean doChangeQuantity(int billId, int foodId, int amount) {
         boolean result = false;
@@ -217,6 +231,8 @@ public class ProductAdapter extends ArrayAdapter<Product> {
                 result = false;
             } else {
                 result = true;
+                ProductAdapter.this.notifyDataSetChanged();
+                this.updateBill.update();
             }
 
             Log.i("TAG", "doGetList: run5:" + msg);

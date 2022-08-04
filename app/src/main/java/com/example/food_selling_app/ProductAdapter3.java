@@ -27,19 +27,20 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-public class ProductAdapter3 extends ArrayAdapter<ProductDomain> {
+public class ProductAdapter3 extends ArrayAdapter<Food> {
     Activity context = null;
-    ArrayList<ProductDomain> itemList = null;
+    ArrayList<Food> itemList = null;
     int layoutID;
     String URL;
     int currentPos = 0;
-
-    public ProductAdapter3(@NonNull Activity context, int layoutID, @NonNull ArrayList<ProductDomain> itemList) {
+    UpdateBill updateBill;
+    public ProductAdapter3(@NonNull Activity context, int layoutID, @NonNull ArrayList<Food> itemList) {
         super(context, layoutID, itemList);
         this.layoutID = layoutID;
         this.context = context;
         this.itemList = itemList;
         URL = context.getResources().getString(R.string.URL);
+
     }
 
     @NonNull
@@ -60,12 +61,12 @@ public class ProductAdapter3 extends ArrayAdapter<ProductDomain> {
             int drawableResourceId = convertView.getResources().getIdentifier("@drawable/pizza1", null, MainActivity.PACKAGE_NAME);
             Drawable res = convertView.getResources().getDrawable(drawableResourceId);
             img.setImageDrawable(res);
-            final ProductDomain p = itemList.get(position);
+            final Food p = itemList.get(position);
             Log.i("TAG", "toStirng: " + p.toString());
             txttensp.setText(p.getFoodName()+ "");
 //            txtngaydathang.setText(p.getDateOrdered() + "");
             txtgiasp.setText(p.getTotal() + "");
-            txtsoluong.setText(p.getNumberInCart() + "");
+            txtsoluong.setText(p.getNumber() + "");
 
         }
         return convertView;

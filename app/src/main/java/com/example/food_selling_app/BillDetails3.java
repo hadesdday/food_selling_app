@@ -23,7 +23,7 @@ import org.ksoap2.transport.HttpTransportSE;
 import java.util.ArrayList;
 
 public class BillDetails3 extends AppCompatActivity {
-    ArrayList<ProductDomain> products = new ArrayList<>();
+    ArrayList<Food> products = new ArrayList<>();
     ArrayList<Product> productsClone = new ArrayList<>();
     ListView listItems;
     ProductAdapter3 productAdapter = null;
@@ -92,8 +92,7 @@ public class BillDetails3 extends AppCompatActivity {
                 String nameProduct=soapItem.getProperty("nameProduct").toString();
                 double priceProduct= Double.parseDouble(soapItem.getProperty("priceProduct").toString());
                 int amount=Integer.parseInt(soapItem.getProperty("amount").toString());
-                ProductDomain p = new ProductDomain(idProduct, nameProduct, "", "", (int) priceProduct, 0);
-                p.setNumberInCart(amount);
+                Food p = new Food(idProduct, nameProduct, "", "", (int) priceProduct, 0,amount);
                 products.add(p);
             }
             productAdapter.notifyDataSetChanged();
@@ -142,8 +141,7 @@ public class BillDetails3 extends AppCompatActivity {
                     double priceProduct= Double.parseDouble(soapItem.getProperty("priceProduct").toString());
                     priceBill+=priceProduct;
                     int amount=Integer.parseInt(soapItem.getProperty("amount").toString());
-                    ProductDomain p = new ProductDomain(idProduct, nameProduct, "", "", (int) priceProduct, 0);
-                    p.setNumberInCart(amount);
+                    Food p = new Food(idProduct, nameProduct, "", "", (int) priceProduct, 0,amount);
                     products.add(p);
 
                 }
