@@ -8,9 +8,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigation;
@@ -43,8 +45,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        Button cart = (Button) findViewById(R.id.cartbtn);
-        cart.setOnClickListener(new View.OnClickListener() {
+
+//        Button listProductCart = (Button) findViewById(R.id.productcart);
+//        listProductCart.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(MainActivity.this, ListProductCart.class);
+//                startActivity(intent);
+//            }
+//        });
+
+        FloatingActionButton floatingActionButton = findViewById(R.id.cartBtn);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, CartListActivity.class);
@@ -52,11 +64,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button listProductCart = (Button) findViewById(R.id.productcart);
-        listProductCart.setOnClickListener(new View.OnClickListener() {
+        Button btnLogin = findViewById(R.id.btnLogin);
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ListProductCart.class);
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button btnProfile = findViewById(R.id.btnProfile);
+        btnProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
                 startActivity(intent);
             }
         });
