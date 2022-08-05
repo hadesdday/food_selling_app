@@ -38,9 +38,6 @@
             android:name=".Contact"
             android:exported="false" />
         <activity
-            android:name=".LogoutActivity"
-            android:exported="false" />
-        <activity
             android:name=".UpdatePasswordSusscesfull"
             android:exported="false" />
         <activity
