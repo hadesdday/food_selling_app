@@ -22,8 +22,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class FilteredFood extends AppCompatActivity {
-    private final String NAMESPACE = getResources().getString(R.string.NAMESPACE);
-    private final String URL = getResources().getString(R.string.URL);
+    String NAMESPACE;
+    String URL;
 
     FoodType foodType;
     TextView text;
@@ -35,7 +35,8 @@ public class FilteredFood extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filtered_food);
-
+        NAMESPACE = getResources().getString(R.string.NAMESPACE);
+        URL = getResources().getString(R.string.URL);
         Intent intent = getIntent();
         foodType = (FoodType) intent.getSerializableExtra("foodtype");
 

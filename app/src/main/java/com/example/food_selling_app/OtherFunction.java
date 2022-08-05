@@ -13,6 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class OtherFunction extends AppCompatActivity {
     public static final String MyPREFERENCES = "MyPrefs";
+    public static final String Username = "usernameKey";
     public static String PACKAGE_NAME;
     BottomNavigationView bottomNavigation;
     Intent intent;
@@ -71,7 +72,7 @@ public class OtherFunction extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.bill:
-                    if (sharedpreferences != null) {
+                    if (sharedpreferences.getString(Username, "") != "") {
                         intent = new Intent(OtherFunction.this, ListBill.class);
                         startActivity(intent);
                     }else{
