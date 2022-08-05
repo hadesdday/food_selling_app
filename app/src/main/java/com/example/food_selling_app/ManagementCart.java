@@ -14,7 +14,7 @@ public class ManagementCart {
         this.mobileDB = new SharedPreferenceCart(context);
     }
 
-    //thêm sản phẩm vào giỏ
+    //thêm sản phẩm vào giỏ hàng
     public void insertProduct(Food item) {
         ArrayList<Food> listProduct = getListCart();
         boolean exist = false;
@@ -33,7 +33,7 @@ public class ManagementCart {
             listProduct.add(item);
         }
         mobileDB.putListObject("CartList", listProduct);
-        Toast.makeText(context, "Added to your cart", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Đã thêm sản phẩm vào giỏ hàng của bạn", Toast.LENGTH_SHORT).show();
     }
 
     public ArrayList<Food> getListCart() {
