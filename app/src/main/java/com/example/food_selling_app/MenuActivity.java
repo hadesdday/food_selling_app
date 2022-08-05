@@ -40,5 +40,14 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(in);
             }
         });
+
+        Button btnBackAccount = findViewById(R.id.btnBackAccount);
+        btnBackAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MenuActivity.this, OtherFunction.class);
+                startActivity(intent);
+            }
+        });
     }
 }

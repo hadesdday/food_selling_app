@@ -42,6 +42,7 @@
         <entry key="..\:/Users/hoang/AndroidStudioProjects/food_selling_app/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.264" />
         <entry key="..\:/Users/hoang/AndroidStudioProjects/food_selling_app/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.124" />
         <entry key="..\:/Users/hoang/AndroidStudioProjects/food_selling_app/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.124" />
+        <entry key="..\:/food_selling_app/app/src/main/res/drawable-anydpi/ic_b.xml" value="0.1625" />
         <entry key="..\:/food_selling_app/app/src/main/res/drawable/background_profie.xml" value="0.169" />
         <entry key="..\:/food_selling_app/app/src/main/res/drawable/btn_background.xml" value="0.169" />
         <entry key="..\:/food_selling_app/app/src/main/res/drawable/cart_background.xml" value="0.169" />
@@ -62,6 +63,7 @@
         <entry key="..\:/food_selling_app/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/food_selling_app/app/src/main/res/layout/activity_main2.xml" value="0.25416666666666665" />
         <entry key="..\:/food_selling_app/app/src/main/res/layout/activity_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/food_selling_app/app/src/main/res/layout/activity_other_function.xml" value="0.25416666666666665" />
         <entry key="..\:/food_selling_app/app/src/main/res/layout/activity_profile.xml" value="0.25416666666666665" />
         <entry key="..\:/food_selling_app/app/src/main/res/layout/activity_show_detail.xml" value="0.25025641025641027" />
         <entry key="..\:/food_selling_app/app/src/main/res/layout/activity_signup.xml" value="0.25416666666666665" />

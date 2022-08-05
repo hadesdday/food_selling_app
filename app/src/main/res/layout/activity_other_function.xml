@@ -7,7 +7,7 @@
     tools:context=".OtherFunction">
     <LinearLayout
         android:id="@+id/linearLayoutOther"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
@@ -23,7 +23,7 @@
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:background="@color/main_color"
-            android:foreground="@drawable/ic_b"
+            android:drawableLeft="@drawable/ic_b"
             android:textColor="#FFFFFF"
             tools:ignore="TextContrastCheck,SpeakableTextPresentCheck" />
 
@@ -34,17 +34,19 @@
             android:layout_weight="1"
             android:background="@color/main_color"
             android:gravity="center_vertical"
+            android:textSize="20dp"
             android:text="Khác"
             android:textColor="#FFFFFF" />
 
     </LinearLayout>
+
     <Button
         android:id="@+id/accountOther"
         android:layout_width="406dp"
         android:layout_height="51dp"
-        android:layout_marginTop="141dp"
+        android:layout_marginTop="100dp"
         android:text="Tài khoản"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutOther"
         tools:layout_editor_absoluteX="0dp" />
 
     <Button

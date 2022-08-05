@@ -33,9 +33,17 @@ public class OtherFunction extends AppCompatActivity {
                     Intent intent = new Intent(OtherFunction.this, LoginActivity.class);
                     startActivity(intent);
                 }else{
-                    Intent intent = new Intent(OtherFunction.this, LogoutActivity.class);
+                    Intent intent = new Intent(OtherFunction.this, MenuActivity.class);
                     startActivity(intent);
                 }
+            }
+        });
+        Button btnBackOther = findViewById(R.id.btnBackOther);
+        btnBackOther.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(OtherFunction.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }

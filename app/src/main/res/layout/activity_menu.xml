@@ -7,40 +7,62 @@
     android:background="#F6F5F5"
     tools:context=".MenuActivity">
 
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="384dp"
-        android:text="Tài khoản"
-        android:textColor="#000000"
-        android:textSize="24dp"
-        android:textStyle="bold"
+    <LinearLayout
+        android:id="@+id/linearLayoutOther"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:orientation="horizontal"
+        android:weightSum="1.0"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnBackAccount"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:background="@color/main_color"
+            android:drawableLeft="@drawable/ic_b"
+            android:textColor="#FFFFFF"
+            tools:ignore="TextContrastCheck,SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="354dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/main_color"
+            android:gravity="center_vertical"
+            android:text="Tài khoản"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp" />
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnProfile"
         android:layout_width="337dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="70dp"
         android:background="@drawable/btn_background"
         android:drawableLeft="@drawable/userprofile"
         android:drawableRight="@drawable/righticon"
-        android:text="Thông tin cá nhân"
         android:drawableTint="@color/white"
+        android:text="Thông tin cá nhân"
         android:textAlignment="textStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutOther" />
 
     <Button
         android:id="@+id/btnLogout"
         android:layout_width="337dp"
         android:layout_height="50dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/btn_background"
-        android:layout_marginTop="6dp"
         android:drawableLeft="@drawable/logoutpro"
         android:drawableRight="@drawable/righticon"
         android:drawableTint="@color/white"
