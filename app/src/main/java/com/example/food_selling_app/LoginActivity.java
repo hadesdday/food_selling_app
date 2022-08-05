@@ -149,7 +149,7 @@ public class LoginActivity extends Activity {
                 editor.putString(Phone, phone);
                 editor.commit();
 
-                Intent myIntent = new Intent(LoginActivity.this, LogoutActivity.class);
+                Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(myIntent);
             }else {
                 txtError.setVisibility(View.VISIBLE);
