@@ -53,7 +53,7 @@ public class Checkout extends AppCompatActivity {
     String usedVoucher = "";
     float total = 0;
 
-    SharedPreferences sharedpreferences, sharedpreferences2;
+    SharedPreferences sharedpreferences, sharedpreferences2, sharedpreferencesCart;
     public static final String MyPREFERENCES = "MyPrefs";
     public static final String Username = "usernameKey";
     public static final String Password = "passKey";
@@ -61,9 +61,10 @@ public class Checkout extends AppCompatActivity {
     public static final String Name = "nameKey";
     public static final String Address = "addressKey";
     public static final String Phone = "phoneKey";
-    public static final String MyPREFERENCES2 = "CartPrefs";
+//    public static final String MyPREFERENCES2 = "CartPrefs";
     public static final String FOODLIST = "foodListKey";
     public static final String TOTALLIST = "totalListKey";
+    public static final String nameCart = "ShopCart";
     public boolean isError = false;
 
     @Override
@@ -91,7 +92,7 @@ public class Checkout extends AppCompatActivity {
         editAddress.setText(address);
         editPhone.setText(phone);
         Log.i("TAG", "onClick not login !!!!!!!!: " + (sharedpreferences.getString(Username, "") == ""));
-        sharedpreferences2 = getSharedPreferences(MyPREFERENCES2, Context.MODE_PRIVATE);
+//        sharedpreferences2 = getSharedPreferences(MyPREFERENCES2, Context.MODE_PRIVATE);
         List<Food> arrayItems;
         String serializedObject = sharedpreferences2.getString(FOODLIST, null);
         if (serializedObject != null) {
@@ -130,7 +131,6 @@ public class Checkout extends AppCompatActivity {
                 String pttt = "COD";
                 Log.i("TAG", "radiobutton:" + radioButton);
                 if (editPhone.getText().toString() == "" || editAddress.getText().toString() == "" || radioButton == null) {
-
                     popupWindow.showAtLocation(view, Gravity.TOP, 0, 0);
                     TextView showText = (TextView) popupView.findViewById(R.id.showText);
                     showText.setText("Bạn cần phải nhập đầy đủ thông tin!");
@@ -141,12 +141,13 @@ public class Checkout extends AppCompatActivity {
                             return true;
                         }
                     });
-                    Button acceptChangePopup = (Button) popupView.findViewById(R.id.btnAccept);
-                    acceptChangePopup.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            popupWindow.dismiss();
-                            return;
+
+                Button acceptChangePopup = (Button) popupView.findViewById(R.id.btnAccept);
+                acceptChangePopup.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                      public void onClick(View view) {
+                         popupWindow.dismiss();
+                         return;
                         }
                     });
                 } else {
@@ -187,12 +188,17 @@ public class Checkout extends AppCompatActivity {
                     TextView showText = (TextView) popupView.findViewById(R.id.showText);
                     if (!isError) {
                         showText.setText("Đạt hàng thành công!");
+                        //clear cart
+                        sharedpreferencesCart = getSharedPreferences(nameCart, Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedpreferencesCart.edit();
+                        editor.clear();
+                        editor.commit();
                     } else {
                         showText.setText("Đạt hàng không thành công! Đã xảy ra lỗi!!");
                     }
-                    SharedPreferences.Editor editor = sharedpreferences2.edit();
-                    editor.clear();
-                    editor.commit();
+//                    SharedPreferences.Editor editor = sharedpreferences2.edit();
+//                    editor.clear();
+//                    editor.commit();
                     popupView.setOnTouchListener(new View.OnTouchListener() {
                         @Override
                         public boolean onTouch(View view, MotionEvent motionEvent) {
