@@ -9,13 +9,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class OtherFunction extends AppCompatActivity {
     public static final String MyPREFERENCES = "MyPrefs";
-
+    public static String PACKAGE_NAME;
+    BottomNavigationView bottomNavigation;
+    Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_other_function);
+        PACKAGE_NAME = getApplicationContext().getPackageName();
+        initBottomNav();
+
         Button btncontact = (Button) findViewById(R.id.ContactOther);
         btncontact.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,6 +44,35 @@ public class OtherFunction extends AppCompatActivity {
                     startActivity(intent);
                 }
             }
+        });
+    }
+    public void initBottomNav(){
+        SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        bottomNavigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigation.setSelectedItemId(R.id.otherFunction);
+        bottomNavigation.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.home:
+                    intent = new Intent(OtherFunction.this, MainActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.otherFunction:
+                    break;
+                case R.id.order:
+                    intent = new Intent(OtherFunction.this, MainActivity2.class);
+                    startActivity(intent);
+                    break;
+                case R.id.bill:
+                    if (sharedpreferences != null) {
+                        intent = new Intent(OtherFunction.this, ListBill.class);
+                        startActivity(intent);
+                    }else{
+                        Intent intent = new Intent(OtherFunction.this, BillDetails2.class);
+                        startActivity(intent);
+                    }
+                    break;
+            }
+            return true;
         });
     }
 }

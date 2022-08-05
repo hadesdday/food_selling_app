@@ -25,10 +25,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:text="My Cart"
+                android:text="Giỏ hàng"
                 android:textAlignment="center"
                 android:textColor="#ff3d00"
-                android:textSize="20sp"
+                android:textSize="26sp"
                 android:textStyle="bold"
                 android:gravity="center_horizontal" />
 
@@ -51,7 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Total:"
+                    android:text="Tổng tiền:"
                     android:textColor="#373b54"
                     android:textSize="30sp"
                     android:textStyle="bold"
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:text="Checkout" />
+                android:text="Thanh toán" />
 
         </LinearLayout>
     </ScrollView>
@@ -82,7 +82,7 @@
         android:id="@+id/emptyTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Your cart is empty"
+        android:text="Giỏ hàng của bạn trống"
         android:textSize="16sp"
         android:textStyle="bold"
         android:visibility="gone"

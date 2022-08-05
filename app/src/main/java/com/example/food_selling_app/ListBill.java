@@ -139,6 +139,8 @@ public class ListBill extends Activity {
         bottomNavigation.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.home:
+                    intent = new Intent(ListBill.this, MainActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.otherFunction:
                     intent = new Intent(ListBill.this, OtherFunction.class);
@@ -149,13 +151,6 @@ public class ListBill extends Activity {
                     startActivity(intent);
                     break;
                 case R.id.bill:
-                    if (sharedpreferences != null) {
-                        intent = new Intent(ListBill.this, ListBill.class);
-                        startActivity(intent);
-                    } else {
-                        Intent intent = new Intent(ListBill.this, BillDetails2.class);
-                        startActivity(intent);
-                    }
                     break;
             }
             return true;
