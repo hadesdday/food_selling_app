@@ -6,15 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <ViewFlipper
+        android:id="@+id/viewflipper"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="10dp"
+        android:autoStart="true"
+        android:flipInterval="5000"
+        app:layout_constraintTop_toTopOf="parent">
+    </ViewFlipper>
+
     <Button
         android:id="@+id/btnBillDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="188dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginBottom="37dp"
         android:text="BillDetail"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
+        app:layout_constraintStart_toEndOf="@+id/productcart" />
 
     <Button
         android:id="@+id/productcart"
@@ -35,9 +45,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_menu" >
-
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+        app:menu="@menu/bottom_navigation_menu" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/cartBtn"
@@ -49,6 +57,7 @@
         android:clickable="true"
         android:contentDescription="@string/app_name"
         android:elevation="3dp"
+        android:focusable="true"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:maxImageSize="30dp"

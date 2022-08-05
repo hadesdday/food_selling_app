@@ -1,7 +1,9 @@
 package com.example.food_selling_app;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,6 +20,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.MarshalFloat;
 import org.ksoap2.serialization.SoapObject;
@@ -28,8 +32,10 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class MainActivity2 extends AppCompatActivity {
-    //    private final String NAMESPACE = getResources().getString(R.string.NAMESPACE1);
-//    private final String URL = getResources().getString(R.string.URL);
+    Intent intent;
+    BottomNavigationView bottomNavigation;
+    public static final String MyPREFERENCES = "MyPrefs";
+
     String NAMESPACE;
     String URL;
     SearchView searchView;
@@ -48,6 +54,7 @@ public class MainActivity2 extends AppCompatActivity {
         searchFunc();
         new doFoodTypeList().execute();
         new doFoodList().execute();
+        initBottomNav();
     }
 
     private void searchFunc() {
@@ -237,6 +244,36 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
+        });
+    }
+
+    public void initBottomNav() {
+        SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        bottomNavigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigation.setSelectedItemId(R.id.order);
+        bottomNavigation.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.home:
+                    intent = new Intent(MainActivity2.this, MainActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.otherFunction:
+                    intent = new Intent(MainActivity2.this, OtherFunction.class);
+                    startActivity(intent);
+                    break;
+                case R.id.order:
+                    break;
+                case R.id.bill:
+                    if (sharedpreferences != null) {
+                        intent = new Intent(MainActivity2.this, ListBill.class);
+                        startActivity(intent);
+                    }else{
+                        Intent intent = new Intent(MainActivity2.this, BillDetails2.class);
+                        startActivity(intent);
+                    }
+                    break;
+            }
+            return true;
         });
     }
 }
