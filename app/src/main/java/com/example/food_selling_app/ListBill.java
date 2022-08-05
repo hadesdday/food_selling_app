@@ -31,16 +31,18 @@ public class ListBill extends Activity {
     ListView listViewBill = null;
     ListView listViewBill2 = null;
     Button btnOrderedBill, btnFinishedBill, btnCancledBill, btnback;
-    String URL ;
+    String URL;
     Intent intent;
     BottomNavigationView bottomNavigation;
     public static final String MyPREFERENCES = "MyPrefs";
+
     //    final String URL="https://localhost:44364/WebServiceProject.asmx";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_bill);
-        URL = getResources().getString(R.string.URL);;
+        URL = getResources().getString(R.string.URL);
+        ;
         initBottomNav();
         btnOrderedBill = (Button) findViewById(R.id.btnOrderedBill);
 
@@ -58,7 +60,7 @@ public class ListBill extends Activity {
         listViewBill.setAdapter(billAdapter);
         billAdapter.notifyDataSetChanged();
 //        doGetList(1, "clientt");
-        new GetBillListWebservice().execute("1","clientt");
+        new GetBillListWebservice().execute("1", "clientt");
         btnOrderedBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,7 +68,7 @@ public class ListBill extends Activity {
                 billAdapter = new BillAdapter(ListBill.this, R.layout.activity_item_bill, bills);
                 listViewBill.setAdapter(billAdapter);
                 billAdapter.notifyDataSetChanged();
-                new GetBillListWebservice().execute("1","clientt");
+                new GetBillListWebservice().execute("1", "clientt");
             }
         });
         btnFinishedBill.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +78,7 @@ public class ListBill extends Activity {
                 billAdapter = new BillAdapter(ListBill.this, R.layout.activity_item_bill, bills);
                 listViewBill.setAdapter(billAdapter);
                 billAdapter.notifyDataSetChanged();
-                new GetBillListWebservice().execute("2","clientt");
+                new GetBillListWebservice().execute("2", "clientt");
             }
         });
         btnCancledBill.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +88,7 @@ public class ListBill extends Activity {
                 billAdapter = new BillAdapter(ListBill.this, R.layout.activity_item_bill, bills);
                 listViewBill.setAdapter(billAdapter);
                 billAdapter.notifyDataSetChanged();
-                new GetBillListWebservice().execute("3","clientt");
+                new GetBillListWebservice().execute("3", "clientt");
             }
         });
         listViewBill.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -100,7 +102,8 @@ public class ListBill extends Activity {
                 bundle.putInt("mahd", bill.getBillId());
                 bundle.putString("sdt", bill.getPhoneNumber());
                 bundle.putString("address", bill.getAddress());
-                bundle.putDouble("price",bill.getPrice());
+                bundle.putDouble("price", bill.getPrice());
+                bundle.putDouble("rate",bill.getRate());
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -129,13 +132,15 @@ public class ListBill extends Activity {
         });
     }
 
-    public void initBottomNav(){
+    public void initBottomNav() {
         SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         bottomNavigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigation.setSelectedItemId(R.id.bill);
         bottomNavigation.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.home:
+                    intent = new Intent(ListBill.this, MainActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.otherFunction:
                     intent = new Intent(ListBill.this, OtherFunction.class);
@@ -146,13 +151,6 @@ public class ListBill extends Activity {
                     startActivity(intent);
                     break;
                 case R.id.bill:
-                    if (sharedpreferences != null) {
-                        intent = new Intent(ListBill.this, ListBill.class);
-                        startActivity(intent);
-                    }else{
-                        Intent intent = new Intent(ListBill.this, BillDetails2.class);
-                        startActivity(intent);
-                    }
                     break;
             }
             return true;
@@ -190,7 +188,7 @@ public class ListBill extends Activity {
                 String phoneNumber = soapItem.getProperty("phoneNumber").toString();
                 String address = soapItem.getProperty("address").toString();
                 double billPrice = Double.parseDouble(soapItem.getProperty("billPrice").toString());
-                Bill bill = new Bill(Integer.parseInt(idBill), dateBill, phoneNumber, address,billPrice);
+                Bill bill = new Bill(Integer.parseInt(idBill), dateBill, phoneNumber, address, billPrice);
 
                 bills.add(bill);
             }
@@ -199,14 +197,17 @@ public class ListBill extends Activity {
             Log.i("TAG", "doGetList: " + e.toString());
         }
     }
+
     private class GetBillListWebservice extends AsyncTask<String, Void, Void> {
         private ProgressDialog dialog = new ProgressDialog(ListBill.this);
         boolean result = false;
+
         @Override
         protected void onPreExecute() {
             dialog.setMessage("Loading...");
             dialog.show();
         }
+
         @Override
         protected Void doInBackground(String... strings) {
             try {
@@ -238,8 +239,10 @@ public class ListBill extends Activity {
                     String dateBill = soapItem.getProperty("dateBill").toString();
                     String phoneNumber = soapItem.getProperty("phoneNumber").toString();
                     String address = soapItem.getProperty("address").toString();
+                    String rate = soapItem.getProperty("rate").toString();
                     double billPrice = Double.parseDouble(soapItem.getProperty("billPrice").toString());
-                    Bill bill = new Bill(Integer.parseInt(idBill), dateBill, phoneNumber, address,billPrice);
+                    Bill bill = new Bill(Integer.parseInt(idBill), dateBill, phoneNumber, address, billPrice);
+                    bill.setRate(Double.parseDouble(rate));
                     bills.add(bill);
                 }
                 billAdapter.notifyDataSetChanged();
@@ -248,8 +251,9 @@ public class ListBill extends Activity {
             }
             return null;
         }
+
         protected void onPostExecute(Void v) {
-            if(dialog.isShowing()) {
+            if (dialog.isShowing()) {
                 dialog.dismiss();
             }
         }

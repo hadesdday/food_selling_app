@@ -41,7 +41,7 @@ public class Checkout extends AppCompatActivity {
     EditText editName, editAddress, editPhone, editVoucher;
     ListView cartCheckout;
     Button btnCheckout, btnBack, btnVoucher;
-    ArrayList<ProductDomain> products = new ArrayList<>();
+    ArrayList<Food> products = new ArrayList<>();
     ProductAdapter3 productAdapter = null;
     RadioGroup radioGroup;
     RadioButton radioButton;
@@ -92,11 +92,11 @@ public class Checkout extends AppCompatActivity {
         editPhone.setText(phone);
         Log.i("TAG", "onClick not login !!!!!!!!: " + (sharedpreferences.getString(Username, "") == ""));
         sharedpreferences2 = getSharedPreferences(MyPREFERENCES2, Context.MODE_PRIVATE);
-        List<ProductDomain> arrayItems;
+        List<Food> arrayItems;
         String serializedObject = sharedpreferences2.getString(FOODLIST, null);
         if (serializedObject != null) {
             Gson gson = new Gson();
-            Type type = new TypeToken<List<ProductDomain>>() {
+            Type type = new TypeToken<List<Food>>() {
             }.getType();
             products = gson.fromJson(serializedObject, type);
         }
@@ -156,7 +156,7 @@ public class Checkout extends AppCompatActivity {
                     } else if ("Thanh toán trực tiếp".equals(text)) {
                         pttt = "COD";
                     }
-                    for (ProductDomain p : products) {
+                    for (Food p : products) {
                         totalBill += p.getTotal();
                     }
                     totalBill = (int) (totalBill * (1 - rate));
@@ -166,7 +166,7 @@ public class Checkout extends AppCompatActivity {
                     Log.i("TAG", "onClick: insert bill:" + pttt);
 //                    int billID = doInsertBill(editName.getText().toString(), totalBill, editPhone.getText().toString(), editAddress.getText().toString(), pttt, sharedpreferences.getString(Username,""));
 //
-//                    for (ProductDomain p : products) {
+//                    for (Food p : products) {
 //                        Log.i("TAG", "onClick: p.getFoodId():"+billID);
 //                        Log.i("TAG", "onClick: p.getFoodId():"+p.getFoodId());
 //                        Log.i("TAG", "onClick: p.getFoodId():"+p.getFoodName());
@@ -174,8 +174,8 @@ public class Checkout extends AppCompatActivity {
 //                        Log.i("TAG", "onClick: p.getFoodId():"+p.getTotal());
 //                        doInsertBillDetail(billID, p.getFoodId(), p.getNumberInCart());
 //                    }
-                    new Webservice().execute(new String[]{editName.getText().toString(), totalBill + "", editPhone.getText().toString(), editAddress.getText().toString(), pttt, sharedpreferences.getString(Username, "")});
-                    usedVoucher(usedVoucher);
+                    new Webservice().execute(new String[]{editName.getText().toString(), totalBill + "", editPhone.getText().toString(), editAddress.getText().toString(), pttt, sharedpreferences.getString(Username, ""),usedVoucher});
+//                    usedVoucher(usedVoucher);
 
                     LayoutInflater inflater = (LayoutInflater) Checkout.this.getSystemService(LAYOUT_INFLATER_SERVICE);
                     View popupView = inflater.inflate(R.layout.popup_comfirm, null);
@@ -232,7 +232,6 @@ public class Checkout extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (hasVoucher) {
-
                 } else {
                     editVoucher = (EditText) findViewById(R.id.editVoucher);
                     String code = editVoucher.getText().toString();
@@ -352,7 +351,7 @@ public class Checkout extends AppCompatActivity {
         return ret;
     }
 
-    public int doInsertBill(String name, int billPrice, String phoneNumber, String address, String payment, String username) {
+    public int doInsertBill(String name, int billPrice, String phoneNumber, String address, String payment, String username,String voucher) {
         int ret = 0;
         try {
             Log.i("TAG", "doGetList insertBill: run1");
@@ -367,6 +366,7 @@ public class Checkout extends AppCompatActivity {
             request.addProperty("address", address);
             request.addProperty("payment", payment);
             request.addProperty("username", username);
+            request.addProperty("voucher", voucher);
 //            request.addSoapObject(newProduct);
             SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
             envelope.dotNet = true;
@@ -440,14 +440,14 @@ public class Checkout extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(String... strings) {
-            int billID = doInsertBill(strings[0], Integer.parseInt(strings[1]), strings[2], strings[3], strings[4], strings[5]);
-            for (ProductDomain p : products) {
+            int billID = doInsertBill(strings[0], Integer.parseInt(strings[1]), strings[2], strings[3], strings[4], strings[5],strings[6]);
+            for (Food p : products) {
                 Log.i("TAG", "onClick: p.getFoodId():" + billID);
                 Log.i("TAG", "onClick: p.getFoodId():" + p.getFoodId());
                 Log.i("TAG", "onClick: p.getFoodId():" + p.getFoodName());
-                Log.i("TAG", "onClick: p.getFoodId():" + p.getNumberInCart());
+                Log.i("TAG", "onClick: p.getFoodId():" + p.getNumber());
                 Log.i("TAG", "onClick: p.getFoodId():" + p.getTotal());
-                doInsertBillDetail(billID, p.getFoodId(), p.getNumberInCart());
+                doInsertBillDetail(billID, p.getFoodId(), p.getNumber());
             }
             return null;
         }

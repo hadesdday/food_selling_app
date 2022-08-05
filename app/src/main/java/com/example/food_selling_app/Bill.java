@@ -9,6 +9,7 @@ public class Bill {
     private String phoneNumber;
     private String address;
     private double price;
+    private double rate;
     public Bill(int billId, String dateBill, String phoneNumber, String address,double price) {
         this.billId = billId;
         this.dateBill = dateBill;
@@ -73,5 +74,12 @@ public class Bill {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public double getRate() {
+        return rate;
+    }
+    public void setRate(double rate) {
+        this.rate = rate;
     }
 }

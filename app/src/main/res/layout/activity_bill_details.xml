@@ -146,7 +146,7 @@
 
     <TextView
         android:id="@+id/textView11"
-        android:layout_width="120dp"
+        android:layout_width="95dp"
         android:layout_height="30dp"
         android:layout_marginStart="10dp"
         android:gravity="center_vertical"
@@ -158,9 +158,8 @@
         android:id="@+id/textPrice_details"
         android:layout_width="0dp"
         android:layout_height="30dp"
-        android:layout_marginEnd="10dp"
         android:gravity="center_vertical"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView12"
         app:layout_constraintStart_toEndOf="@+id/textView11"
         app:layout_constraintTop_toBottomOf="@+id/listItems" />
 
@@ -173,4 +172,21 @@
         android:text="Hủy đơn hàng"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:gravity="center_vertical"
+        android:text="Giảm giá:  "
+        app:layout_constraintEnd_toStartOf="@+id/textRate_details"
+        app:layout_constraintTop_toBottomOf="@+id/listItems" />
+
+    <TextView
+        android:id="@+id/textRate_details"
+        android:layout_width="75dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listItems" />
 </androidx.constraintlayout.widget.ConstraintLayout>
