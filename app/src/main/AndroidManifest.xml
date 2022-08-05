@@ -72,6 +72,9 @@
             android:name=".MainActivity2"
             android:exported="false" />
         <activity
+            android:name=".FilteredFood"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

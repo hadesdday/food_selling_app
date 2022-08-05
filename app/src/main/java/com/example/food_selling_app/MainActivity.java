@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigation;
     Intent intent;
     public static final String MyPREFERENCES = "MyPrefs";
+    public static final String Username = "usernameKey";
     public static String PACKAGE_NAME;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.bill:
-                    if (sharedpreferences != null) {
+                    if (sharedpreferences.getString(Username, "") != "") {
                         intent = new Intent(MainActivity.this, ListBill.class);
                         startActivity(intent);
                     }else{

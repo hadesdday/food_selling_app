@@ -52,16 +52,17 @@ public class ProductAdapter3 extends ArrayAdapter<Food> {
         convertView = inflater.inflate(layoutID, null);
 
         if (itemList.size() > 0 && position >= 0) {
-
+            final Food p = itemList.get(position);
             final TextView txttensp = (TextView) convertView.findViewById(R.id.texttensp2);
             final TextView txtngaydathang = (TextView) convertView.findViewById(R.id.textngaydathang2);
             final TextView txtgiasp = (TextView) convertView.findViewById(R.id.textgiasp2);
             final TextView txtsoluong = (TextView) convertView.findViewById(R.id.textsoluongsp2);
             final ImageView img=(ImageView) convertView.findViewById(R.id.imageView);
-            int drawableResourceId = convertView.getResources().getIdentifier("@drawable/pizza1", null, MainActivity.PACKAGE_NAME);
+            Log.i("TAG", "gitImage: "+p.getFoodImage());
+            int drawableResourceId = convertView.getResources().getIdentifier(p.getFoodImage(), "drawable", MainActivity.PACKAGE_NAME);
             Drawable res = convertView.getResources().getDrawable(drawableResourceId);
             img.setImageDrawable(res);
-            final Food p = itemList.get(position);
+
             Log.i("TAG", "toStirng: " + p.toString());
             txttensp.setText(p.getFoodName()+ "");
 //            txtngaydathang.setText(p.getDateOrdered() + "");
