@@ -23,7 +23,7 @@
             android:id="@+id/btnBackCheckout"
             android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:background="#FFEB3B"
+            android:background="@color/main_color"
             android:foreground="@drawable/ic_b"
             android:textColor="#FFFFFF"
             tools:ignore="TextContrastCheck,SpeakableTextPresentCheck" />
@@ -33,7 +33,7 @@
             android:layout_width="354dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#FFEB3B"
+            android:background="@color/main_color"
             android:gravity="center_vertical"
             android:text="Chi tiết hóa đơn"
             android:textColor="#FFFFFF" />

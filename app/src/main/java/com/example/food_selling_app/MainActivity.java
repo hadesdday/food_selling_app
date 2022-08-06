@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Food> foodArrayList;
 
     public static final String MyPREFERENCES = "MyPrefs";
+    public static final String Username = "usernameKey";
     public static String PACKAGE_NAME;
 
     @Override
@@ -48,13 +49,7 @@ public class MainActivity extends AppCompatActivity {
         PACKAGE_NAME = getApplicationContext().getPackageName();
         initBottomNav();
         new doFoodList().execute();
-        Button btnBillDetail = (Button) findViewById(R.id.btnBillDetail);
-        btnBillDetail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openBillDetail();
-            }
-        });
+
 
 //        Button listProductCart = (Button) findViewById(R.id.productcart);
 //        listProductCart.setOnClickListener(new View.OnClickListener() {
@@ -155,10 +150,7 @@ public class MainActivity extends AppCompatActivity {
         viewFlipper.setOutAnimation(AnimationUtils.loadAnimation(MainActivity.this, R.anim.slide_out));
     }
 
-    public void openBillDetail() {
-        Intent intent = new Intent(this, BillDetails2.class);
-        startActivity(intent);
-    }
+
 
     public void initBottomNav(){
         SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
@@ -177,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.bill:
-                    if (sharedpreferences != null) {
+                    if (sharedpreferences.getString(Username, "") != "") {
                         intent = new Intent(MainActivity.this, ListBill.class);
                         startActivity(intent);
                     }else{

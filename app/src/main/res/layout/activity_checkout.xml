@@ -23,7 +23,7 @@
             android:id="@+id/btnBackCheckout"
             android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:background="#FFEB3B"
+            android:background="@color/main_color"
             android:foreground="@drawable/ic_b"
             android:textColor="#FFFFFF"
             tools:ignore="TextContrastCheck,SpeakableTextPresentCheck" />
@@ -33,7 +33,7 @@
             android:layout_width="354dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#FFEB3B"
+            android:background="@color/main_color"
             android:gravity="center_vertical"
             android:text="Thanh toán"
             android:textColor="#FFFFFF" />
@@ -200,6 +200,7 @@
                 android:id="@+id/btnVoucher"
                 android:layout_width="59dp"
                 android:layout_height="62dp"
+                android:backgroundTint="@color/main_color"
                 android:text="OK"
                 app:layout_constraintStart_toEndOf="@+id/editVoucher"
                 app:layout_constraintTop_toBottomOf="@+id/textView11" />
@@ -235,6 +236,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="150dp"
+        android:backgroundTint="@color/main_color"
         android:text="Thanh toán"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

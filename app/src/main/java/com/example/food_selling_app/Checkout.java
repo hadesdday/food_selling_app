@@ -61,7 +61,7 @@ public class Checkout extends AppCompatActivity {
     public static final String Name = "nameKey";
     public static final String Address = "addressKey";
     public static final String Phone = "phoneKey";
-//    public static final String MyPREFERENCES2 = "CartPrefs";
+    public static final String MyPREFERENCES2 = "CartPrefs";
     public static final String FOODLIST = "foodListKey";
     public static final String TOTALLIST = "totalListKey";
     public static final String nameCart = "ShopCart";
@@ -92,7 +92,7 @@ public class Checkout extends AppCompatActivity {
         editAddress.setText(address);
         editPhone.setText(phone);
         Log.i("TAG", "onClick not login !!!!!!!!: " + (sharedpreferences.getString(Username, "") == ""));
-//        sharedpreferences2 = getSharedPreferences(MyPREFERENCES2, Context.MODE_PRIVATE);
+        sharedpreferences2 = getSharedPreferences(MyPREFERENCES2, Context.MODE_PRIVATE);
         List<Food> arrayItems;
         String serializedObject = sharedpreferences2.getString(FOODLIST, null);
         if (serializedObject != null) {
@@ -142,12 +142,12 @@ public class Checkout extends AppCompatActivity {
                         }
                     });
 
-                Button acceptChangePopup = (Button) popupView.findViewById(R.id.btnAccept);
-                acceptChangePopup.setOnClickListener(new View.OnClickListener() {
-                   @Override
-                      public void onClick(View view) {
-                         popupWindow.dismiss();
-                         return;
+                    Button acceptChangePopup = (Button) popupView.findViewById(R.id.btnAccept);
+                    acceptChangePopup.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            popupWindow.dismiss();
+                            return;
                         }
                     });
                 } else {
@@ -175,7 +175,7 @@ public class Checkout extends AppCompatActivity {
 //                        Log.i("TAG", "onClick: p.getFoodId():"+p.getTotal());
 //                        doInsertBillDetail(billID, p.getFoodId(), p.getNumberInCart());
 //                    }
-                    new Webservice().execute(new String[]{editName.getText().toString(), totalBill + "", editPhone.getText().toString(), editAddress.getText().toString(), pttt, sharedpreferences.getString(Username, ""),usedVoucher});
+                    new Webservice().execute(new String[]{editName.getText().toString(), totalBill + "", editPhone.getText().toString(), editAddress.getText().toString(), pttt, sharedpreferences.getString(Username, ""), usedVoucher});
 //                    usedVoucher(usedVoucher);
 
                     LayoutInflater inflater = (LayoutInflater) Checkout.this.getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -203,9 +203,11 @@ public class Checkout extends AppCompatActivity {
                         @Override
                         public boolean onTouch(View view, MotionEvent motionEvent) {
                             popupWindow.dismiss();
-                            if (!isError)
+                            if (!isError) {
+                                Intent intent = new Intent(Checkout.this, MainActivity.class);
+                                startActivity(intent);
                                 finish();
-                            else {
+                            } else {
                                 isError = false;
                             }
                             return true;
@@ -216,9 +218,11 @@ public class Checkout extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
                             popupWindow.dismiss();
-                            if (!isError)
+                            if (!isError) {
+                                Intent intent = new Intent(Checkout.this, MainActivity.class);
+                                startActivity(intent);
                                 finish();
-                            else {
+                            } else {
                                 isError = false;
                             }
                             return;
@@ -357,7 +361,7 @@ public class Checkout extends AppCompatActivity {
         return ret;
     }
 
-    public int doInsertBill(String name, int billPrice, String phoneNumber, String address, String payment, String username,String voucher) {
+    public int doInsertBill(String name, int billPrice, String phoneNumber, String address, String payment, String username, String voucher) {
         int ret = 0;
         try {
             Log.i("TAG", "doGetList insertBill: run1");
@@ -446,7 +450,7 @@ public class Checkout extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(String... strings) {
-            int billID = doInsertBill(strings[0], Integer.parseInt(strings[1]), strings[2], strings[3], strings[4], strings[5],strings[6]);
+            int billID = doInsertBill(strings[0], Integer.parseInt(strings[1]), strings[2], strings[3], strings[4], strings[5], strings[6]);
             for (Food p : products) {
                 Log.i("TAG", "onClick: p.getFoodId():" + billID);
                 Log.i("TAG", "onClick: p.getFoodId():" + p.getFoodId());

@@ -35,6 +35,9 @@ public class ListBill extends Activity {
     Intent intent;
     BottomNavigationView bottomNavigation;
     public static final String MyPREFERENCES = "MyPrefs";
+    SharedPreferences sharedpreferences;
+    public static final String Username = "usernameKey";
+    String accountName;
 
     //    final String URL="https://localhost:44364/WebServiceProject.asmx";
     @Override
@@ -42,7 +45,7 @@ public class ListBill extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_bill);
         URL = getResources().getString(R.string.URL);
-        ;
+
         initBottomNav();
         btnOrderedBill = (Button) findViewById(R.id.btnOrderedBill);
 
@@ -59,16 +62,20 @@ public class ListBill extends Activity {
         intent = new Intent(ListBill.this, BillDetails.class);
         listViewBill.setAdapter(billAdapter);
         billAdapter.notifyDataSetChanged();
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        accountName = sharedpreferences.getString(Username, "");
+        Log.i("TAG", "onCreate: accountName:" + accountName);
 //        doGetList(1, "clientt");
-        new GetBillListWebservice().execute("1", "clientt");
+        new GetBillListWebservice().execute("1", accountName);
         btnOrderedBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 intent = new Intent(ListBill.this, BillDetails.class);
                 billAdapter = new BillAdapter(ListBill.this, R.layout.activity_item_bill, bills);
                 listViewBill.setAdapter(billAdapter);
+
+                new GetBillListWebservice().execute("1", accountName);
                 billAdapter.notifyDataSetChanged();
-                new GetBillListWebservice().execute("1", "clientt");
             }
         });
         btnFinishedBill.setOnClickListener(new View.OnClickListener() {
@@ -77,8 +84,9 @@ public class ListBill extends Activity {
                 intent = new Intent(ListBill.this, BillDetails3.class);
                 billAdapter = new BillAdapter(ListBill.this, R.layout.activity_item_bill, bills);
                 listViewBill.setAdapter(billAdapter);
+
+                new GetBillListWebservice().execute("2", accountName);
                 billAdapter.notifyDataSetChanged();
-                new GetBillListWebservice().execute("2", "clientt");
             }
         });
         btnCancledBill.setOnClickListener(new View.OnClickListener() {
@@ -87,8 +95,9 @@ public class ListBill extends Activity {
                 intent = new Intent(ListBill.this, BillDetails3.class);
                 billAdapter = new BillAdapter(ListBill.this, R.layout.activity_item_bill, bills);
                 listViewBill.setAdapter(billAdapter);
+
+                new GetBillListWebservice().execute("3", accountName);
                 billAdapter.notifyDataSetChanged();
-                new GetBillListWebservice().execute("3", "clientt");
             }
         });
         listViewBill.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -103,27 +112,12 @@ public class ListBill extends Activity {
                 bundle.putString("sdt", bill.getPhoneNumber());
                 bundle.putString("address", bill.getAddress());
                 bundle.putDouble("price", bill.getPrice());
-                bundle.putDouble("rate",bill.getRate());
+                bundle.putDouble("rate", bill.getRate());
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
-//        listViewBill2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Intent intent = new Intent(ListBill.this, BillDetails3.class);
-//                Bundle bundle = new Bundle();
-//                Bill bill = (Bill) adapterView.getItemAtPosition(i);
-////                Log.i("TAG", "doGetListItems: "+bill.getProducts().size());
-////                bundle.putParcelableArrayList("products", bill.getProducts());
-//                bundle.putInt("mahd", bill.getBillId());
-//                bundle.putString("sdt", bill.getPhoneNumber());
-//                bundle.putString("address", bill.getAddress());
-//
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//        });
+
         btnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -245,10 +239,25 @@ public class ListBill extends Activity {
                     bill.setRate(Double.parseDouble(rate));
                     bills.add(bill);
                 }
+                runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        try {
+                            synchronized (this) {
+                                wait(1500);
+                                billAdapter.notifyDataSetChanged();
+                            }
+                        } catch (InterruptedException e) {
+
+                        }
+                    }
+                });
                 billAdapter.notifyDataSetChanged();
             } catch (Exception e) {
                 Log.i("TAG", "doGetList: " + e.toString());
             }
+
             return null;
         }
 
