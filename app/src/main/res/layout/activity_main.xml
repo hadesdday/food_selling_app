@@ -16,26 +16,6 @@
         app:layout_constraintTop_toTopOf="parent">
     </ViewFlipper>
 
-    <Button
-        android:id="@+id/btnBillDetail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
-        android:layout_marginBottom="37dp"
-        android:text="BillDetail"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
-        app:layout_constraintStart_toEndOf="@+id/productcart" />
-
-    <Button
-        android:id="@+id/productcart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
-        android:layout_marginBottom="37dp"
-        android:text="productcart"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"

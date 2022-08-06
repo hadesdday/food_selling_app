@@ -174,7 +174,7 @@ public class Checkout extends AppCompatActivity {
 //                        Log.i("TAG", "onClick: p.getFoodId():"+p.getTotal());
 //                        doInsertBillDetail(billID, p.getFoodId(), p.getNumberInCart());
 //                    }
-                    new Webservice().execute(new String[]{editName.getText().toString(), totalBill + "", editPhone.getText().toString(), editAddress.getText().toString(), pttt, sharedpreferences.getString(Username, ""),usedVoucher});
+                    new Webservice().execute(new String[]{editName.getText().toString(), totalBill + "", editPhone.getText().toString(), editAddress.getText().toString(), pttt, sharedpreferences.getString(Username, ""), usedVoucher});
 //                    usedVoucher(usedVoucher);
 
                     LayoutInflater inflater = (LayoutInflater) Checkout.this.getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -187,19 +187,23 @@ public class Checkout extends AppCompatActivity {
                     TextView showText = (TextView) popupView.findViewById(R.id.showText);
                     if (!isError) {
                         showText.setText("Đạt hàng thành công!");
+
                     } else {
                         showText.setText("Đạt hàng không thành công! Đã xảy ra lỗi!!");
                     }
-                    SharedPreferences.Editor editor = sharedpreferences2.edit();
-                    editor.clear();
-                    editor.commit();
+
                     popupView.setOnTouchListener(new View.OnTouchListener() {
                         @Override
                         public boolean onTouch(View view, MotionEvent motionEvent) {
                             popupWindow.dismiss();
-                            if (!isError)
-                                finish();
-                            else {
+                            if (!isError) {
+                                SharedPreferences.Editor editor = sharedpreferences2.edit();
+                                editor.clear();
+                                editor.commit();
+                                Intent intent = new Intent(Checkout.this, MainActivity.class);
+                                startActivity(intent);
+
+                            } else {
                                 isError = false;
                             }
                             return true;
@@ -210,9 +214,13 @@ public class Checkout extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
                             popupWindow.dismiss();
-                            if (!isError)
-                                finish();
-                            else {
+                            if (!isError) {
+                                SharedPreferences.Editor editor = sharedpreferences2.edit();
+                                editor.clear();
+                                editor.commit();
+                                Intent intent = new Intent(Checkout.this, MainActivity.class);
+                                startActivity(intent);
+                            } else {
                                 isError = false;
                             }
                             return;
@@ -351,7 +359,7 @@ public class Checkout extends AppCompatActivity {
         return ret;
     }
 
-    public int doInsertBill(String name, int billPrice, String phoneNumber, String address, String payment, String username,String voucher) {
+    public int doInsertBill(String name, int billPrice, String phoneNumber, String address, String payment, String username, String voucher) {
         int ret = 0;
         try {
             Log.i("TAG", "doGetList insertBill: run1");
@@ -440,7 +448,7 @@ public class Checkout extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(String... strings) {
-            int billID = doInsertBill(strings[0], Integer.parseInt(strings[1]), strings[2], strings[3], strings[4], strings[5],strings[6]);
+            int billID = doInsertBill(strings[0], Integer.parseInt(strings[1]), strings[2], strings[3], strings[4], strings[5], strings[6]);
             for (Food p : products) {
                 Log.i("TAG", "onClick: p.getFoodId():" + billID);
                 Log.i("TAG", "onClick: p.getFoodId():" + p.getFoodId());

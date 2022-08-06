@@ -21,7 +21,7 @@
             android:id="@+id/btnBackContact"
             android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:background="#FFEB3B"
+            android:background="@color/main_color"
             android:foreground="@drawable/ic_b"
             android:textColor="#FFFFFF"
             tools:ignore="TextContrastCheck,SpeakableTextPresentCheck" />
@@ -31,7 +31,7 @@
             android:layout_width="354dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#FFEB3B"
+            android:background="@color/main_color"
             android:gravity="center_vertical"
             android:text="Liên hệ"
             android:textColor="#FFFFFF" />
@@ -74,6 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:backgroundTint="@color/main_color"
             android:elevation="4dp"
             android:paddingLeft="70dp"
             android:paddingRight="70dp"

@@ -39,7 +39,9 @@ public class ManagementCart {
     public ArrayList<Food> getListCart() {
         return mobileDB.getListObject("CartList");
     }
-
+    public void clearCart(){
+        mobileDB.putListObject("CartList", new ArrayList<Food>());
+    }
     // +sp
     public void plusNumberFood(ArrayList<Food> listFood, int position, ChangeNumberItemsListener changeNumberItemsListener) {
         listFood.get(position).setNumber(listFood.get(position).getNumber() + 1);

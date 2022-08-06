@@ -61,12 +61,12 @@
             android:id="@+id/send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/main_color"
+            android:gravity="center"
             android:text="Gửi"
-            android:textSize="20sp"
-            android:gravity="center">
-        </Button>
+            android:textSize="20sp"></Button>
     </LinearLayout>
 
     <LinearLayout

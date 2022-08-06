@@ -192,9 +192,9 @@
                     android:id="@+id/btnSignin"
                     android:layout_width="350dp"
                     android:layout_height="50dp"
-                    android:background="@drawable/btn_background"
-                    android:textColor="#FFFFFF"
+                    android:backgroundTint="@color/main_color"
                     android:text="Đăng ký"
+                    android:textColor="#FFFFFF"
                     android:textSize="22dp" />
             </TableRow>
         </TableLayout>

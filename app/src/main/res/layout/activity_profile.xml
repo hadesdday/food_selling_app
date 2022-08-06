@@ -170,10 +170,10 @@
                 android:id="@+id/btnProUpdate"
                 android:layout_width="350dp"
                 android:layout_height="50dp"
-                android:textSize="20dp"
+                android:backgroundTint="@color/main_color"
+                android:text="Cập nhật"
                 android:textColor="#ffffff"
-                android:background="@drawable/btn_background"
-                android:text="Cập nhật" />
+                android:textSize="20dp" />
         </TableRow>
     </TableLayout>
 

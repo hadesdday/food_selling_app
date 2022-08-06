@@ -37,7 +37,7 @@ public class OtherFunction extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-                if (sharedpreferences == null) {
+                if (sharedpreferences.getString(Username, "") == "") {
                     Intent intent = new Intent(OtherFunction.this, LoginActivity.class);
                     startActivity(intent);
                 }else{

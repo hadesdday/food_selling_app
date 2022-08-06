@@ -35,7 +35,7 @@ public class MainActivity2 extends AppCompatActivity {
     Intent intent;
     BottomNavigationView bottomNavigation;
     public static final String MyPREFERENCES = "MyPrefs";
-
+    public static final String Username = "usernameKey";
     String NAMESPACE;
     String URL;
     SearchView searchView;
@@ -264,7 +264,7 @@ public class MainActivity2 extends AppCompatActivity {
                 case R.id.order:
                     break;
                 case R.id.bill:
-                    if (sharedpreferences != null) {
+                    if (sharedpreferences.getString(Username, "") != "") {
                         intent = new Intent(MainActivity2.this, ListBill.class);
                         startActivity(intent);
                     }else{
